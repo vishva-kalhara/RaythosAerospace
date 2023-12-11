@@ -1,0 +1,65 @@
+﻿@model RaythosAerospace101.Models.Plane
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<div class="heading v__center">
+    <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+        <div class="img__logo_word">Raythos Aerospace</div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a asp-controller="User" asp-action="Index" class="heading__link">Login</a>
+            <button type="button" class="filled__button">Go to Store</button>
+        </div>
+    </div>
+</div>
+<!-- <section >
+    <div class="spinner"></div>
+</section> -->
+<section style="background-color: #F5F7F5; min-height: 85vh;" class="v__center">
+    <div class="width920" style=" box-sizing: border-box;">
+        <div class="typo__heading__2 center">@Model.Name</div>
+        <img src="../../images/planes/@Model.Image" class="img__single__product" alt="">
+        <div style="margin-top: 24px;" class="center">
+            <button type="button" class="filled__button">Customize Now</button>
+        </div>
+    </div>
+</section>
+<section style="background-color: white;" class="v__center">
+    <div class="width920">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6" style="margin: 16px 0; box-sizing: border-box; padding-right: 36px;">
+                    <div class="typo__heading__3">@Model.Heading1</div>
+                    <div style="margin-top: 8px;" class="typo__para__1">@Model.Para1</div>
+                </div>
+                <div class="center col-12 col-md-6" style="margin: 16px 0; ">
+                    <div>
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__range"></div>
+                            <div class="spec__item__txt__1">@Model.Distant</div>
+                            <div class="spec__item__txt__2">km</div>
+                        </div>
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__speed"></div>
+                            <div class="spec__item__txt__1">@Model.Mach</div>
+                            <div class="spec__item__txt__2">Mach</div>
+                        </div>
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__range"></div>
+                            <div class="spec__item__txt__1">@Model.Baggage</div>
+                            <div class="spec__item__txt__2">ft3 Baggage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin: 72px 0 24px 0;" class="row">
+                <div class="col-12">
+                    <div class="typo__heading__3 center">@Model.Heading2</div>
+                    <div style="margin-top: 8px;" class="typo__para__1">@Model.Para2</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

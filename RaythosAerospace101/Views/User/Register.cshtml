@@ -1,0 +1,27 @@
+﻿@model RaythosAerospace101.Models.User
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="login" style="padding: 0;">
+    <div class="login__banner"></div>
+    <div class="login__content">
+        <div class="right">
+            <a asp-controller="Home" asp-action="Index">Skip for Now</a>
+        </div>
+        <form class="login__content__main" method="post" asp-controller="User" asp-action="Register">
+            <div style="margin-top: 36px;" class="img__logo__small"></div>
+            <div style="margin-top: 36px;" class="typo__heading__1 center">Raythos Aerospace</div>
+            <div class="typo__subHeading__1 center">Please enter your details.</div>
+            <input name="Email" style="margin-top: 48px;" type="email" placeholder="E-mail">
+            <input name="Password" type="password" placeholder="Password">
+            <input name="confirmPassword" type="password" placeholder="Confirm Password">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input style="margin-top: 12px;" type="submit" class="max__filled__button" value="Sign up" />
+            <div style="margin-top: 24px;" class="center">
+                <a asp-controller="User" asp-action="Index">Already have an Account?</a>
+            </div>
+        </form>
+    </div>
+</section>
+
