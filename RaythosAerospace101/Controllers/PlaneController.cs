@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
@@ -33,14 +34,16 @@ namespace RaythosAerospace101.Controllers
             {
                 return NotFound();
             }
-            return View(plane);
+            string[] data = { HttpContext.Session.GetString("role") };
+            //ViewBag.data = data;
+            return View();
         }
 
         // GET: Add
         public IActionResult Add()
         {
-
-            return View();
+            string[] data = { HttpContext.Session.GetString("role") };
+            return View(data);
         }
 
         // POST: Add

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
 using System;
@@ -37,6 +38,8 @@ namespace RaythosAerospace101.Controllers
                 }
                 else
                 {
+                    HttpContext.Session.SetString("email", item.Email);
+                    HttpContext.Session.SetString("role", item.RoleId.ToString());
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -62,8 +65,11 @@ namespace RaythosAerospace101.Controllers
                     return View();
                 }
 
+                obj.RoleId = 3;
+                obj.UsrStatusId = 1;
                 _db.Users.Add(obj);
                 _db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View();
