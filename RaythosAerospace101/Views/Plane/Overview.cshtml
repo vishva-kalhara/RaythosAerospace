@@ -4,18 +4,16 @@
 }
 
 @*@if(((string[])ViewBag.data)[0] == "4")
-{ 
-    <p>GG</p>
-}*@
-<div class="heading v__center">
-    <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
-        <div class="img__logo_word">Raythos Aerospace</div>
-        <div style="display: flex; align-items: center; gap: 16px;">
-            <a asp-controller="User" asp-action="Index" class="heading__link">Login</a>
-            <button type="button" class="filled__button">Go to Store</button>
-        </div>
-    </div>
-</div>
+    {
+        <p>GG</p>
+    }*@
+@{
+    // Access the session variable
+    //string userRole = Session["UserRole"] as string;
+}
+
+    @await Html.PartialAsync("_CLientHeader")
+
 <!-- <section >
     <div class="spinner"></div>
 </section> -->

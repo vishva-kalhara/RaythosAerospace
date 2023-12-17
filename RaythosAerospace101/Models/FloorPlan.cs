@@ -14,7 +14,7 @@ namespace RaythosAerospace101.Models
         [Required]
         public string Title{ get; set; }
 
-        [Required]
+        
         public string Image_Path{ get; set; }
 
         [Required]
@@ -25,6 +25,8 @@ namespace RaythosAerospace101.Models
 
         [Required]
         public double Price { get; set; }
+
+        public bool isActive { get; set; }
 
         public List<CustomizedPlane> CustomizedPlanes { get; set; }
 

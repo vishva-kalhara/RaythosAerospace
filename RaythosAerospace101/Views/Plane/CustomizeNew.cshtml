@@ -1,0 +1,141 @@
+﻿@model RaythosAerospace101.ViewModels.FloorPlanDesignScheme
+@{
+    ViewData["Title"] = "CustomizeNew";
+}
+
+@await Html.PartialAsync("_CLientHeader")
+
+<form>
+    <section style="min-height: 87vh;" class="v__center">
+        <div class="width920">
+            <div class="fluid-container">
+                <div class="row">
+                    <div style="margin-bottom: 12px;" class="col-12 center">
+                        <div class="typo__heading__2 ">Floor Plan Options</div>
+                    </div>
+
+                        <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
+                            <div class="card__floorPlan">
+                                <img src="../../images/floor_plans/" alt="image">
+                                <div style="margin-top: 12px;" class="card__floorPlan__persons">
+                                    <div></div>
+                                    <div class="typo__subHeading__3">12</div>
+                                </div>
+                                <div style="margin-top: 14px;" class="typo__subHeading__3">Executive</div>
+                                <div style="margin-top: 4px;" class="typo__para__1">This floorplan features a forward club suite and an aft conference suite with a table for four and an adjacent divan.</div>
+                                <div style="margin-top: 36px;" class="center customization_radio">
+                                    <input type="radio" class="d-none" id="input1" name="set1">
+                                    <label for="input1" class="raised_button"></label>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                    <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
+                        <div class="card__floorPlan">
+                            <img src="../../assets/app/customizations/image 3.png" alt="image">
+                            <div style="margin-top: 12px;" class="card__floorPlan__persons">
+                                <div></div>
+                                <div class="typo__subHeading__3">10</div>
+                            </div>
+                            <div style="margin-top: 14px;" class="typo__subHeading__3">Globetrotter</div>
+                            <div style="margin-top: 4px;" class="typo__para__1">This floorplan features a forward club suite and an aft conference suite with a table for four and an adjacent divan.</div>
+                            <div style="margin-top: 36px;" class="center customization_radio">
+                                <input type="radio" class="d-none" id="input2" name="set1">
+                                <label for="input2" class="raised_button"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="v__center">
+        <div class="width920">
+            <div class="fluid-container">
+                <div class="row">
+                    <div style="margin-bottom: 12px;" class="col-12 center">
+                        <div class="typo__heading__2 ">Design Scheme Options</div>
+                    </div>
+                    <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
+                        <div class="card__designScheme">
+                            <div class="card__designScheme__img" style="background-image: url(../../assets/app/customizations/CL650_presets_contemporary_880x480.png);"></div>
+                            <div class="card__designScheme__content">
+                                <div style="margin-top: 14px;" class="typo__subHeading__3">Contemporary</div>
+                                <div style="margin-top: 4px;" class="typo__para__1">This scheme incorporates neutral elements and tasteful contrasts to create a space that is current and subtle in its sophistication.</div>
+                                <div style="margin-top: 36px;" class="center customization_radio">
+                                    <input type="radio" class="d-none" id="input21" name="set2">
+                                    <label for="input21" class="raised_button"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
+                        <div class="card__designScheme">
+                            <div class="card__designScheme__img" style="background-image: url(../../assets/app/customizations/CL650_presets_contemporary_880x480.png);"></div>
+                            <div class="card__designScheme__content">
+                                <div style="margin-top: 14px;" class="typo__subHeading__3">Contemporary</div>
+                                <div style="margin-top: 4px;" class="typo__para__1">This scheme incorporates neutral elements and tasteful contrasts to create a space that is current and subtle in its sophistication.</div>
+                                <div style="margin-top: 36px;" class="center customization_radio">
+                                    <input type="radio" class="d-none" id="input22" name="set2">
+                                    <label for="input22" class="raised_button"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="v__center">
+        <div class="width920">
+            <div class="fluid-container">
+                <div class="row">
+                    <div class="col-12 center">
+                        <div class="typo__heading__2 ">Your Challenger 650</div>
+                    </div>
+                    <img src="../../assets/app/planes/challenger650.png" class="img__single__product" alt="">
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-3 center">
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__range"></div>
+                            <div class="spec__item__txt__1">7,408</div>
+                            <div class="spec__item__txt__2">km</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 center">
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__persons"></div>
+                            <div class="spec__item__txt__1">10</div>
+                            <div class="spec__item__txt__2">Persons</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 center">
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__speed"></div>
+                            <div class="spec__item__txt__1">0.85</div>
+                            <div class="spec__item__txt__2">Mach</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 center">
+                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
+                            <div class="spec__item__range"></div>
+                            <div class="spec__item__txt__1">115</div>
+                            <div class="spec__item__txt__2">ft3 Baggage</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 48px 0;" class="center">
+
+                    <div style="display: flex; gap: 16px;">
+
+                        <button type="button" class="text__button">Add to Basket</button>
+                        <button type="button" class="filled__button">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+

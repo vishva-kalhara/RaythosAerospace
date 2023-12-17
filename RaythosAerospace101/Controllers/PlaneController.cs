@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
+using RaythosAerospace101.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,11 +15,16 @@ namespace RaythosAerospace101.Controllers
     public class PlaneController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _db;
 
-        public PlaneController(IWebHostEnvironment webHostEnvironment, ApplicationDbContext db)
+        [BindProperty]
+        public FloorPlanDesignScheme ViewModel { get; private set; }
+
+        public PlaneController(IWebHostEnvironment webHostEnvironment, ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _webHostEnvironment = webHostEnvironment;
+            _httpContextAccessor = httpContextAccessor;
             _db = db;
         }
 
@@ -36,6 +42,17 @@ namespace RaythosAerospace101.Controllers
             }
             string[] data = { HttpContext.Session.GetString("role") };
             //ViewBag.data = data;
+            return View(plane);
+        }
+
+        // GET: CustomizeNew
+        public IActionResult CustomizeNew()
+        {
+             ViewModel = new FloorPlanDesignScheme
+            {
+                FloorPlans = _db.FloorPlans.ToList(),
+                planeDesignSchemes = _db.PlaneDesignSchemes.ToList()
+            };
             return View();
         }
 

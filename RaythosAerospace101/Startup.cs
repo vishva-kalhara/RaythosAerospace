@@ -29,6 +29,7 @@ namespace RaythosAerospace101
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddDistributedMemoryCache();
+            services.AddHttpContextAccessor();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

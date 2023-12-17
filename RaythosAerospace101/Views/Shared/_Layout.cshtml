@@ -13,7 +13,7 @@
     
     @RenderBody()
 
-    @if (ViewContext.RouteData.Values["controller"].ToString() != "User" )
+    @if (ViewContext.RouteData.Values["controller"].ToString() != "User" && ViewContext.RouteData.Values["controller"].ToString() != "Admin")
     {
         @await Html.PartialAsync("_footer")
     }

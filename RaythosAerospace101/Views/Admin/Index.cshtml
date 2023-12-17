@@ -3,5 +3,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<section style="display: flex; padding: 0;">
+    @await Html.PartialAsync("_AdminMenu")
+    <div style="width: 100%; max-height: 100vh;  background-color: aquamarine;">
+
+        @{
+            string currentController = ViewContext.RouteData.Values["controller"].ToString();
+            string currentAction = ViewContext.RouteData.Values["action"].ToString();
+        }
+
+        @if (currentAction == "NewFloorPlan")
+        {
+            @await Html.PartialAsync("_NewFloorPlan")
+        }
+    </div>
+</section>
 
