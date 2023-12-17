@@ -18,8 +18,8 @@ namespace RaythosAerospace101.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _db;
 
-        [BindProperty]
-        public FloorPlanDesignScheme ViewModel { get; private set; }
+        //[BindProperty]
+        //public FloorPlanDesignScheme ViewModel { get; private set; }
 
         public PlaneController(IWebHostEnvironment webHostEnvironment, ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
         {
@@ -46,14 +46,16 @@ namespace RaythosAerospace101.Controllers
         }
 
         // GET: CustomizeNew
-        public IActionResult CustomizeNew()
+        public IActionResult CustomizeNew(int id)
         {
-             ViewModel = new FloorPlanDesignScheme
+            var currObj = _db.Planes.Find(id);
+            var viewModel = new FloorPlanDesignScheme
             {
                 FloorPlans = _db.FloorPlans.ToList(),
-                planeDesignSchemes = _db.PlaneDesignSchemes.ToList()
+                planeDesignSchemes = _db.PlaneDesignSchemes.ToList(),
+                plane = currObj
             };
-            return View();
+            return View(viewModel);
         }
 
         // GET: Add

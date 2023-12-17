@@ -10,5 +10,6 @@ namespace RaythosAerospace101.ViewModels
     {
         public List<FloorPlan> FloorPlans { get; set; }
         public List<PlaneDesignScheme> planeDesignSchemes { get; set; }
+        public Plane plane { get; set; }
     }
 }
