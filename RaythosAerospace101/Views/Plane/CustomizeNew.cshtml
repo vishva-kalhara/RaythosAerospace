@@ -5,10 +5,11 @@
 
 @await Html.PartialAsync("_CLientHeader")
 
-<form id="form_customizeNew">
+<form id="form_customizeNew" method="post" asp-controller="Plane" asp-action="CustomizeNew">
     <section style="min-height: 87vh;" class="v__center">
         <div class="width920">
             <div class="fluid-container">
+                <div>@DateTime.Now</div>
                 <div class="row">
                     <div style="margin-bottom: 12px;" class="col-12 center">
                         <div class="typo__heading__2 ">Floor Plan Options</div>
@@ -27,7 +28,7 @@
                                     <div style="margin-top: 14px;" class="typo__subHeading__3">@item.Title</div>
                                     <div style="margin-top: 4px; min-height: 64px;" class="typo__para__1" >@item.Description</div>
                                     <div style="margin-top: 36px;" class="center customization_radio">
-                                        <input onclick="showOverview(@item.Persons)" type="radio" class="d-none" id="floor @item.Id" name="floor">
+                                        <input value="@item.Id" onclick="showOverview(@item.Persons, @item.Id)" type="radio" class="d-none" id="floor @item.Id" name="FloorPlanId">
                                         <label for="floor @item.Id" class="raised_button"></label>
                                     </div>
                                 </div>
@@ -38,7 +39,7 @@
             </div>
         </div>
     </section>
-    <section class="v__center">
+    <section class="v__center" id="section_designSchemes">
         <div class="width920">
             <div class="fluid-container">
                 <div class="row">
@@ -56,23 +57,31 @@
                                         <div style="margin-top: 14px;" class="typo__subHeading__3">@item.Title</div>
                                         <div style="margin-top: 4px;" class="typo__para__1">@item.Description</div>
                                         <div style="margin-top: 36px;" class="center customization_radio">
-                                            <input type="radio" class="d-none" id="designScheme @item.Id" name="design Scheme">
+                                            <input value="@item.Id" onclick="onDesignScheme(@item.Id)" type="radio" class="d-none" id="designScheme @item.Id" name="PlaneDesignSchemeId">
                                             <label for="designScheme @item.Id" class="raised_button"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         }
                     }
                 </div>
             </div>
         </div>
     </section>
-    <section class="v__center" id="section_overview"></section>
+    <section style="min-height: 0px" class="" id="section_overview">
+       
+    </section>
 </form>
 
 <script>
-    const showOverview = function (persons) {
+    let floor = null;
+    let designScheme = null;
+
+    const showOverview = function (persons, cardId) {
+        floor = cardId;
+
         const markup = `
                 <div class="width920">
                     <div class="fluid-container">
@@ -116,12 +125,43 @@
 
                             <div style="display: flex; gap: 16px;">
 
-                                <button type="button" class="text__button">Add to Basket</button>
-                                <button type="button" class="filled__button">Place Order</button>
+                                <input onclick="setFormAction('AddToBasket')" type="submit" class="text__button" value="Add to Basket">
+                                <input onclick="setFormAction('placeOrder')" type="submit" class="filled__button" value="Place Order">
                             </div>
                         </div>
                     </div>
-                </div>`
+                </div>
+
+                <input type="hidden" id="formAction" name="formAction" value="" />
+                <input type="text" style="display: none" name="PlaneId" value="@Model.plane.Id"/>`
+
         document.getElementById("section_overview").innerHTML = markup;
+        document.getElementById("section_overview").style.minHeight = "100vh";
     }
+
+    const onDesignScheme = function (cardId) {
+        designScheme = cardId;
+    }
+
+    const setFormAction = function (action) {
+        document.getElementById('formAction').value = action;
+    }
+
+    function callControllerMethod() {
+        fetch('/Plane/TestMethod')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                // Handle the response data here
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+
 </script>

@@ -58,6 +58,35 @@ namespace RaythosAerospace101.Controllers
             return View(viewModel);
         }
 
+        // Post: CustomizeNew
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CustomizeNew(CustomizedPlane customizedPlane, string formAction)
+        {
+            if (HttpContext.Session.GetString("email") == null || HttpContext.Session.GetString("email") == "")
+            {
+                return RedirectToAction("Index", "User");
+            } else
+            {
+                customizedPlane.Id = 0;
+                customizedPlane.CurrentDate = DateTime.Now;
+
+                if (formAction == "AddToBasket")
+                    customizedPlane.IsBasket = true;
+                else
+                    customizedPlane.IsBasket = false;
+
+                customizedPlane.UserEmail = HttpContext.Session.GetString("email");
+
+                customizedPlane.OverallStatusId = 1;
+
+                _db.CustomizedPlanes.Add(customizedPlane);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+        }
+
         // GET: Add
         public IActionResult Add()
         {

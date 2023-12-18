@@ -11,9 +11,10 @@ namespace RaythosAerospace101.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime CurrentDate { get; set; }
-        public DateTime DueDate { get; set; }
 
+        public DateTime CurrentDate { get; set; }
+
+        public bool IsBasket { get; set; }
 
         [ForeignKey("Plane")]
         public int PlaneId { get; set; }

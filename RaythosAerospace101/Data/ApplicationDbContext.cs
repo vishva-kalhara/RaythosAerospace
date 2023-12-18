@@ -22,7 +22,9 @@ namespace RaythosAerospace101.Data
         public DbSet<PlaneDesignScheme> PlaneDesignSchemes { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<InvInvoice> InvInvoices { get; set; }
-        public DbSet<OverallStatus> overallStatuses { get; set; }
-        public DbSet<SparePart> spareParts { get; set; }
+        public DbSet<OverallStatus> OverallStatuses { get; set; }
+        public DbSet<SparePart> SpareParts { get; set; }
+
+        
     }
 }

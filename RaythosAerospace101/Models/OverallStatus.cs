@@ -10,7 +10,7 @@ namespace RaythosAerospace101.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Value { get; set; }
+        public string Value { get; set; }
 
         public List<CustomizedPlane> CustomizedPlanes { get; set; }
 
