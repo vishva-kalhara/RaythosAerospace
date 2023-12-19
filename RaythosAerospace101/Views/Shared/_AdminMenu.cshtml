@@ -1,14 +1,14 @@
 ﻿<div class="admin__menu">
     <div style="margin-top: 24px;" class="img__logo__full"></div>
-    <div style="margin-top: 110px;" class="admin_radio">
-        <input type="radio" id="menu_1" name="admin_radio">
+    <a asp-controller="admin" asp-action="Index" style="margin-top: 110px;" class="admin_radio">
+        <input type="radio" @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "checked" : "") checked id="menu_1" name="admin_radio">
         <label for="menu_1">
             <div class="dot">
                 <div class="dot__content"></div>
             </div>
             <div class="text">Dashboard</div>
         </label>
-    </div>
+    </a>
     <div class="admin_radio">
         <input type="radio" id="menu_2" name="admin_radio">
         <label for="menu_2">

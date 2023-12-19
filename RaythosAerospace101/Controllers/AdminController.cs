@@ -31,11 +31,22 @@ namespace RaythosAerospace101.Controllers
         
         public IActionResult Planes()
         {
+            IEnumerable<Plane> objList = _db.Planes;
+            return View(objList);
+        }
+        
+        public IActionResult ManageOrders()
+        {
             return View();
         }
         
         // Get: New Floor Plan
         public IActionResult NewFloorPlan()
+        {
+            return View();
+        }
+        
+        public IActionResult FloorPlans()
         {
             return View();
         }
@@ -113,7 +124,21 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
         
-        // Get: New Floor Plan
+        public IActionResult DesignSchemes()
+        {
+            return View();
+        }
+
+        public IActionResult SpareParts()
+        {
+            return View();
+        }
+
+        public IActionResult UserList()
+        {
+            return View();
+        }
+        
         public IActionResult NewDesignScheme()
         {
             return View();

@@ -26,6 +26,26 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult Shop()
+        {
+            return View();
+        }
+
+        public IActionResult MyPlanes()
+        {
+            return View();
+        }
+
+        public IActionResult MyProfile()
+        {
+            return View();
+        }
+
+        public IActionResult MyOrders()
+        {
+            return View();
+        }
+
 
 
 

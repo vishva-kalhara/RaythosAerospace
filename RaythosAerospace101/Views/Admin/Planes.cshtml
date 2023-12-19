@@ -1,7 +1,46 @@
-﻿
+﻿@model IEnumerable<RaythosAerospace101.Models.Plane>
 @{
     ViewData["Title"] = "Planes";
 }
 
-<h1>Planes</h1>
+<div class="container-md pt-5">
 
+    <div class="d-flex w-100" style="justify-content:end">
+        <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
+    </div>
+
+    <div style="min-height:400px">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Model</th>
+                        <th scope="col">Mack</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle">@item.Name</td>
+                            <td class="align-middle">@item.Mach</td>
+                            <td class="align-middle">$@item.Price</td>
+                            <td class="align-middle">
+                                <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                <a asp-controller="Plane" asp-action="Add" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">Hide</a>
+                                <a asp-controller="Plane" asp-action="Add" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        }
+    </div>
+    
+
+</div>

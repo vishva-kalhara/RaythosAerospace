@@ -4,7 +4,108 @@
         <div style="display: flex; align-items: center; gap: 16px;">
 
             <a asp-controller="User" asp-action="Index"  class="heading__link">Login</a>
-            <a asp-controller="User" asp-action="Index"  type="button" class="filled__button">Go to Store</a>
+            @*<a asp-controller="User" asp-action="Index"  type="button" class="filled__button">Go to Store</a>*@
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Menu
+            </button>
+            <ul class="dropdown-menu dropdown-menu">
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "") "
+                       asp-controller="Home" asp-action="Index">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Shop" ? "active" : "") "
+                       asp-controller="Home" asp-action="Shop">
+                        Shop
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "MyPlanes" ? "active" : "") "
+                       asp-controller="Home" asp-action="MyPlanes">
+                        My Planes
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "MyOrders" ? "active" : "") "
+                       asp-controller="Home" asp-action="MyOrders">
+                        Other Orders
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "MyProfile" ? "active" : "") "
+                       asp-controller="Home" asp-action="MyProfile">
+                        My Profile
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "Planes" ? "active" : "") "
+                       asp-controller="Admin" asp-action="Planes">
+                        Planes
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "FloorPlans" ? "active" : "") "
+                       asp-controller="Admin" asp-action="FloorPlans">
+                        Floor Plans
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "DesignSchemes" ? "active" : "") "
+                       asp-controller="Admin" asp-action="DesignSchemes">
+                        Design Schemes
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "SpareParts" ? "active" : "") "
+                       asp-controller="Admin" asp-action="SpareParts">
+                        Spare Parts
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "ManageOrders" ? "active" : "") "
+                       asp-controller="Admin" asp-action="ManageOrders">
+                        Manage Orders
+                    </a>
+                </li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "UserList" ? "active" : "") "
+                       asp-controller="Admin" asp-action="UserList">
+                        Users List
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a style="margin-bottom: 5px"
+                       class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Logout" ? "active" : "") "
+                       asp-controller="User" asp-action="Logout">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
         </div>
     </div>
 </div>

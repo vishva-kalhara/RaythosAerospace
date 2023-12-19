@@ -33,6 +33,17 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult Edit(int id)
+        {
+            var plane = _db.Planes.Find(id);
+            if (plane == null)
+            {
+                return NotFound();
+            }
+            ViewBag.roleId = HttpContext.Session.GetString("role");
+            return View(plane);
+        }
+
         public IActionResult Overview(int id)
         {
             var plane = _db.Planes.Find(id);
