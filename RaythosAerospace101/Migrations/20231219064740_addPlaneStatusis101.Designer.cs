@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RaythosAerospace101.Data;
 
 namespace RaythosAerospace101.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231219064740_addPlaneStatusis101")]
+    partial class addPlaneStatusis101
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,13 +405,13 @@ namespace RaythosAerospace101.Migrations
 
             modelBuilder.Entity("RaythosAerospace101.Models.Plane", b =>
                 {
-                    b.HasOne("RaythosAerospace101.Models.PlaneStatus", "PlaneStatus")
+                    b.HasOne("RaythosAerospace101.Models.PlaneStatus", "PlaneStatuses")
                         .WithMany("Planes")
                         .HasForeignKey("PlaneStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PlaneStatus");
+                    b.Navigation("PlaneStatuses");
                 });
 
             modelBuilder.Entity("RaythosAerospace101.Models.User", b =>

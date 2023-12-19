@@ -24,16 +24,20 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td class="align-middle">@item.Name</td>
-                            <td class="align-middle">@item.Mach</td>
-                            <td class="align-middle">$@item.Price</td>
-                            <td class="align-middle">
-                                <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
-                                <a asp-controller="Plane" asp-action="Add" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">Hide</a>
-                                <a asp-controller="Plane" asp-action="Add" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
-                            </td>
-                        </tr>
+                        @if (item.PlaneStatusId != 3)
+                        {
+                            <tr>
+                                <td class="align-middle">@item.Name</td>
+                                <td class="align-middle">@item.Mach</td>
+                                <td class="align-middle">$@item.Price</td>
+                                <td class="align-middle">
+                                    <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                    <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.PlaneStatusId == 2? "Show" : "Hide")</a>
+                                    <a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id"  class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
                     }
 
 

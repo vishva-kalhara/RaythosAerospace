@@ -33,6 +33,7 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        // GET: Edit
         public IActionResult Edit(int id)
         {
             var plane = _db.Planes.Find(id);
@@ -42,6 +43,89 @@ namespace RaythosAerospace101.Controllers
             }
             ViewBag.roleId = HttpContext.Session.GetString("role");
             return View(plane);
+        }
+
+        // POST: Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Plane obj)
+        {
+            if (ModelState.IsValid)
+            {
+                #region // Input Validation
+                if (obj.Name == "")
+                    ModelState.AddModelError("addPlane", "Title can't be empty");
+                else if (obj.Heading1 == "")
+                    ModelState.AddModelError("addPlane", "Heading 1 can't be empty");
+                else if (obj.Para1 == "")
+                    ModelState.AddModelError("addPlane", "Paragraph 1 can't be empty");
+                else if (obj.Distant.ToString() == "")
+                    ModelState.AddModelError("addPlane", "Distant can't be empty");
+                else if (obj.Distant < 0)
+                    ModelState.AddModelError("addPlane", "Distant should be more than 0");
+                else if (obj.Mach.ToString() == "")
+                    ModelState.AddModelError("addPlane", "Mach Number can't be empty");
+                else if (obj.Mach < 0)
+                    ModelState.AddModelError("addPlane", "Mach Number should be more than 0");
+                else if (obj.Baggage.ToString() == "")
+                    ModelState.AddModelError("addPlane", "Storage size can't be empty");
+                else if (obj.Baggage < 0)
+                    ModelState.AddModelError("addPlane", "Storage size should be more than 0");
+                else if (obj.Heading2 == "")
+                    ModelState.AddModelError("addPlane", "Heading 2 can't be empty");
+                else if (obj.Para2 == "")
+                    ModelState.AddModelError("addPlane", "Paragraph 2 can't be empty");
+                else if (obj.Price.ToString() == "")
+                    ModelState.AddModelError("addPlane", "Price can't be empty");
+                else if (obj.Price < 0)
+                    ModelState.AddModelError("addPlane", "Price should be more than 0");
+                #endregion
+
+                string uniqueFileName = "";
+
+                #region  // Save the Image to "Images/Planes and saves the Url in "img_path"
+
+                var file = Request.Form.Files["input_productImg"];
+                if (file != null && file.Length > 0)
+                {
+                    // Define the folder where you want to save the images
+                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "planes");
+
+                    // Ensure the folder exists, create if not
+                    if (!Directory.Exists(uploadFolder))
+                    {
+                        Directory.CreateDirectory(uploadFolder);
+                    }
+
+                    // Generate a unique filename for the uploaded file
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+
+                    // Combine the folder path and the unique filename
+                    var filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                    // Save the file to the server
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    string img_path = "/wwwroot/images/planes/" + uniqueFileName;
+                    obj.Image = uniqueFileName;
+
+                }
+
+                // Store the file path in a variable (img_path)
+
+                #endregion
+
+                //obj.isActive = true;
+
+                _db.Planes.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Planes", "Admin");
+
+            }
+            return RedirectToAction("Planes", "Admin");
         }
 
         public IActionResult Overview(int id)
@@ -103,6 +187,31 @@ namespace RaythosAerospace101.Controllers
         {
             string[] data = { HttpContext.Session.GetString("role") };
             return View(data);
+        }
+
+        public IActionResult Hide(int id)
+        {
+            var currObj = _db.Planes.Find(id);
+            if(currObj.PlaneStatusId == 2)
+            {
+                currObj.PlaneStatusId = 1;
+            }
+            else if(currObj.PlaneStatusId == 1)
+            {
+                currObj.PlaneStatusId = 2;
+            }
+            _db.Planes.Update(currObj);
+            _db.SaveChanges();
+            return RedirectToAction("Planes", "Admin");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var currObj = _db.Planes.Find(id);
+            currObj.PlaneStatusId = 3;
+            _db.Planes.Update(currObj);
+            _db.SaveChanges();
+            return RedirectToAction("Planes", "Admin");
         }
 
         // POST: Add
@@ -180,7 +289,8 @@ namespace RaythosAerospace101.Controllers
                 #endregion
 
                 obj.Image = uniqueFileName;
-                obj.isActive = true;
+                //obj.isActive = true;
+                obj.PlaneStatusId = 1;
 
                 _db.Planes.Add(obj);
                 _db.SaveChanges();

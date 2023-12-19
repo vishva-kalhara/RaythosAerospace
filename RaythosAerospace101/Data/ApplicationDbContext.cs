@@ -24,6 +24,7 @@ namespace RaythosAerospace101.Data
         public DbSet<InvInvoice> InvInvoices { get; set; }
         public DbSet<OverallStatus> OverallStatuses { get; set; }
         public DbSet<SparePart> SpareParts { get; set; }
+        public DbSet<PlaneStatus> PlaneStatuses { get; set; }
 
         
     }
