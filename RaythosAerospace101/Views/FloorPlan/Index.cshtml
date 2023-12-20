@@ -11,7 +11,7 @@
                     <div class="typo__heading__2 ">Floor Plan Options</div>
                 </div>
                 <div class="d-flex w-100" style="justify-content:end">
-                    <a asp-controller="Admin" asp-action="NewFloorPlan" class="btn btn-secondary">New Floor Plan</a>
+                    <a asp-controller="FloorPlan" asp-action="New" class="btn btn-secondary">New Floor Plan</a>
                 </div>
                 @foreach (var item in Model)
                 {
@@ -27,9 +27,9 @@
                                 <div style="margin-top: 14px;" class="typo__subHeading__3">@item.Title</div>
                                 <div style="margin-top: 4px; min-height: 64px;" class="typo__para__1">@item.Description</div>
                                 <div class="d-flex">
-                                    <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
-                                    <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Active" ? "Hide" : "Show")</a>
-                                    <a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <a asp-controller="FloorPlan" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                    <a asp-controller="FloorPlan" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Active" ? "Hide" : "Show")</a>
+                                    <a asp-controller="FloorPlan" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
                                 </div>
                             </div>
                         </div>
