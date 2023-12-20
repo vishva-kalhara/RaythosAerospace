@@ -3,13 +3,11 @@
     ViewData["Title"] = "CustomizeNew";
 }
 
-@await Html.PartialAsync("_CLientHeader")
 
 <form id="form_customizeNew" method="post" asp-controller="Plane" asp-action="CustomizeNew">
     <section style="min-height: 87vh;" class="v__center">
         <div class="width920">
             <div class="fluid-container">
-                <div>@DateTime.Now</div>
                 <div class="row">
                     <div style="margin-bottom: 12px;" class="col-12 center">
                         <div class="typo__heading__2 ">Floor Plan Options</div>

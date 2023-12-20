@@ -158,10 +158,7 @@ namespace RaythosAerospace101.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CustomizeNew(CustomizedPlane customizedPlane, string formAction)
         {
-            if (HttpContext.Session.GetString("email") == null || HttpContext.Session.GetString("email") == "")
-            {
-                return RedirectToAction("Index", "User");
-            } else
+            if (HttpContext.Session.GetString("role") == "3" || HttpContext.Session.GetString("role") == "4")
             {
                 customizedPlane.Id = 0;
                 customizedPlane.CurrentDate = DateTime.Now;
@@ -180,17 +177,29 @@ namespace RaythosAerospace101.Controllers
 
                 return RedirectToAction("Index");
             }
+            else
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
         }
 
         // GET: Add
         public IActionResult Add()
         {
             string[] data = { HttpContext.Session.GetString("role") };
+            if(HttpContext.Session.GetString("role") != "4" )
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
             return View(data);
         }
 
         public IActionResult Hide(int id)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
             var currObj = _db.Planes.Find(id);
             if(currObj.PlaneStatusId == 2)
             {
@@ -207,6 +216,10 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
             var currObj = _db.Planes.Find(id);
             currObj.PlaneStatusId = 3;
             _db.Planes.Update(currObj);
@@ -219,6 +232,10 @@ namespace RaythosAerospace101.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(Plane obj)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
             ViewBag.Message = "checked";
 
             if (ModelState.IsValid)
