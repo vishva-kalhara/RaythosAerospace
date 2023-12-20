@@ -15,6 +15,8 @@ namespace RaythosAerospace101.Models
         public string ImagePath { get; set; }
         public double Price { get; set; }
 
+        public string Stat { get; set; }
+
         public List<Inventory> InventoryItems { get; set; }
     }
 }

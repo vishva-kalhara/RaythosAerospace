@@ -21,7 +21,7 @@
         <div class="typo__heading__2 center">@Model.Name</div>
         <img src="../../images/planes/@Model.Image" class="img__single__product" alt="">
         <div style="margin-top: 24px;" class="center">
-            <button type="button" class="filled__button">Customize Now</button>
+            <a asp-controller="Plane" asp-action="CustomizeNew" asp-route-Id="@Model.Id" type="button" class="filled__button">Customize Now</a>
         </div>
     </div>
 </section>

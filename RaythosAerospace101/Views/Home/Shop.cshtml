@@ -1,19 +1,48 @@
-﻿
+﻿@model RaythosAerospace101.ViewModels.Planes__SpareParts
 @{
     ViewData["Title"] = "Shop";
 }
 
 <div class="container-md mb-5">
-    <div class="row">
-        <div class="col-12 col-sm-6 mt-3">
-            <div class="card__shop__plane">
-                <div style="background-image: url(../../../assets/app/planes/challenger650.png);"></div>
-                <div class="typo__subHeading__3 mt-4">Bombraider Challenger 650</div>
-                <div style="margin-top: 36px;" class="center">
-                    <button type="button" class="filled__button">Shop Now</button>
+    <div style="margin-bottom: 12px;" class="col-12 center">
+        <div class="typo__heading__2 ">Aeroplanes</div>
+    </div>
+    <div class="row mt-2">
+        @foreach (var item in Model.Planes)
+        {
+            @if (item.PlaneStatusId == 1)
+            {
+                <div class="col-12 col-sm-6 col-md-4 mt-3">
+                    <div class="card__shop__plane">
+                        <div style="background-image: url(../../images/planes/92df672a-dd0e-437c-a9c5-fc268ccaad46_challenger650.png);"></div>
+                        <div class="typo__subHeading__3 mt-4">@item.Name</div>
+                        <div style="margin-top: 36px;" class="center">
+                            <a asp-controller="Plane" asp-action="Overview" asp-route-Id="@item.Id" style="text-decoration:none" class="filled__button">Shop Now</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        }
+    </div>
+    <div style="margin-bottom: 12px; margin-top: 96px" class="col-12 center">
+        <div class="typo__heading__2 ">Spare Parts</div>
+    </div>
+    <div class="row mt-2">
+        @foreach (var item in Model.Planes)
+        {
+            @if (item.PlaneStatusId == 1)
+            {
+                <div class="col-12 col-sm-6 col-md-4 mt-3">
+                    <div class="card__shop__plane">
+                        @*<div style="background-image: url('../../images/planes/@Model.Image');"></div>*@
+                        <div class="typo__subHeading__3 mt-4">@item.Name</div>
+                        <div style="margin-top: 36px;" class="center">
+                            <a asp-controller="Plane" asp-action="Overview" asp-route-Id="@item.Id" style="text-decoration:none" class="filled__button">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 

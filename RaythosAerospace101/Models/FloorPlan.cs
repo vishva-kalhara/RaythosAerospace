@@ -28,6 +28,8 @@ namespace RaythosAerospace101.Models
 
         public bool isActive { get; set; }
 
+        public string Stat { get; set; }
+
         public List<CustomizedPlane> CustomizedPlanes { get; set; }
 
     }

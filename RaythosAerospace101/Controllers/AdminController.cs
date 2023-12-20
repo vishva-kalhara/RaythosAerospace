@@ -45,10 +45,11 @@ namespace RaythosAerospace101.Controllers
         {
             return View();
         }
-        
+
         public IActionResult FloorPlans()
         {
-            return View();
+            IEnumerable<FloorPlan> objList = _db.FloorPlans;
+            return View(objList);
         }
 
         //POST: New Flor Plan
