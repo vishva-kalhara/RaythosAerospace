@@ -12,31 +12,34 @@
                     padding-top: 100px;
                     box-sizing: border-box;
                 ">
-        <form enctype="multipart/form-data" method="post" asp-controller="FloorPlan" asp-action="New">
+        <form enctype="multipart/form-data" method="post" asp-controller="FloorPlan" asp-action="Edit">
             <div style="flex-direction: column; display: flex; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
                 <div class="typo__heading__3" style="background-color: #ededed; width: 100%; padding: 24px; ">
                     Edit Floor Plan
                 </div>
                 <div style="flex-direction: column; display: flex; padding: 24px;">
-
-                    <input accept="image/*" type="file" name="img_floorPlan" id="img_floorPlan" />
+                    <input type="text"
+                           name="Image_Path"
+                           placeholder="Image Path"
+                           style="margin-top: 16px" value="@Model.Image_Path"  readonly/>
+                    <input accept="image/*" type="file" name="img_floorPlan" id="img_floorPlan"  placeholder="Shange Image"/>
                     <input type="text"
                            name="Title"
                            placeholder="Title"
-                           style="margin-top: 16px" />
-                    <textarea name="Description" id="" cols="" rows="1" class="title typo__para__1" style="margin-top: 16px;" placeholder="Description"></textarea>
+                           style="margin-top: 16px" value="@Model.Title" />
+                    <textarea name="Description" id="" cols="" rows="4" class="title typo__para__1" style="margin-top: 16px;" placeholder="Description">@Model.Description</textarea>
                     <input type="number"
                            name="Persons"
                            placeholder="No. of Persons"
-                           style="margin-top: 10px" />
+                           style="margin-top: 10px" value="@Model.Persons" />
                     <input type="number"
                            name="Price"
                            placeholder="Price"
-                           style="margin-top: 10px" />
+                           style="margin-top: 10px" value="@Model.Price"/>
                     <div class="right" style="margin-top: 30px;">
                         <div style="display: flex; gap: 16px;">
-                            <button type="button" class="text__button">Cancel</button>
-                            <input type="submit" class="filled__button" value="Add">
+                            @*<button type="button" class="text__button">Cancel</button>*@
+                            <input type="submit" class="filled__button" value="Edit">
                         </div>
                     </div>
                 </div>

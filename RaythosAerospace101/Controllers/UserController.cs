@@ -75,6 +75,11 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult MyProfile()
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             return View();

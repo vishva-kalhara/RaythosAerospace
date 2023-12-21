@@ -29,7 +29,7 @@
                                 <div class="d-flex">
                                     <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
                                     <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Active" ? "Hide" : "Show")</a>
-                                    <a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -39,4 +39,8 @@
         </div>
     </div>
 </section>
+
+<script>
+    
+</script>
 

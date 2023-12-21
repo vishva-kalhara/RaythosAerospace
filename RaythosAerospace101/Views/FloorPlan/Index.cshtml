@@ -15,7 +15,7 @@
                 </div>
                 @foreach (var item in Model)
                 {
-                    if (item.isActive == true)
+                    if (item.Stat == "Active" || item.Stat == "Hidden")
                     {
                         <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
                             <div class="card__floorPlan">
@@ -29,7 +29,8 @@
                                 <div class="d-flex">
                                     <a asp-controller="FloorPlan" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
                                     <a asp-controller="FloorPlan" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Active" ? "Hide" : "Show")</a>
-                                    <a asp-controller="FloorPlan" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <a id="2delete @item.Id" asp-controller="FloorPlan" asp-action="Delete" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -39,4 +40,10 @@
         </div>
     </div>
 </section>
+<script>
 
+    function firstHide(id) {
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+</script>
