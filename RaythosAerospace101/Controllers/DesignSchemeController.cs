@@ -31,8 +31,6 @@ namespace RaythosAerospace101.Controllers
             return View(objList);
         }
 
-        
-        
         public IActionResult New()
         {
             if (HttpContext.Session.GetString("role") != "4")
