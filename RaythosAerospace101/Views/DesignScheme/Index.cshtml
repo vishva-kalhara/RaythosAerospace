@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RaythosAerospace101.Models.PlaneDesignScheme>
+@{
+    ViewData["Title"] = "Design Chemes";
+}
+
+<section style="min-height: 87vh;" class="v__center">
+    <div class="width920">
+        <div class="fluid-container">
+            <div class="row">
+                <div style="margin-bottom: 12px;" class="col-12 center">
+                    <div class="typo__heading__2 ">Design Scheme Options</div>
+                </div>
+                <div class="d-flex w-100" style="justify-content:end">
+                    <a asp-controller="DesignScheme" asp-action="New" class="btn btn-secondary">New Design Scheme</a>
+                </div>
+                @foreach (var item in Model)
+                {
+                    if (item.Stat == "Active" || item.Stat == "Hidden")
+                    {
+                        <div class="col-12 col-md-6 center" style=" padding: 24px; box-sizing:border-box;">
+                            <div class="card__designScheme">
+                                <div class="card__designScheme__img" style="background-image: url(../../images/design_schemes/@item.Image_Path); "></div>
+                                <div class="card__designScheme__content">
+                                    <div style="margin-top: 14px;" class="typo__subHeading__3">@item.Title</div>
+                                    <div style="margin-top: 4px;" class="typo__para__1">@item.Description</div>
+                                    <div class="d-flex mt-2">
+                                        <a asp-controller="DesignScheme" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                        <a asp-controller="DesignScheme" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Active" ? "Hide" : "Show")</a>
+                                        <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                        <a id="2delete @item.Id" asp-controller="DesignScheme" asp-action="Delete" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    function firstHide(id) {
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+</script>
