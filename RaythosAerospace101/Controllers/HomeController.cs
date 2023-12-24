@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
@@ -41,10 +42,6 @@ namespace RaythosAerospace101.Controllers
             return View(ViewModel);
         }
 
-        public IActionResult MyPlanes()
-        {
-            return View();
-        }
 
         public IActionResult MyProfile()
         {
@@ -55,9 +52,6 @@ namespace RaythosAerospace101.Controllers
         {
             return View();
         }
-
-
-
 
         public IActionResult Privacy()
         {

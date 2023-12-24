@@ -1,0 +1,63 @@
+﻿@model IEnumerable<RaythosAerospace101.Models.CustomizedPlane>
+@{
+    ViewData["Title"] = "My Planes";
+}
+
+<div class="container-md pt-5">
+
+    @*<div class="d-flex w-100" style="justify-content:end">
+            <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
+        </div>*@
+
+    <div style="min-height:400px">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Model</th>
+                        <th scope="col">Current Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="align-middle">@item.Plane.Name</td>
+                            @{ 
+                                var itemTotal = @item.Plane.Price + @item.FloorPlan.Price + @item.PlaneDesignScheme.Price;
+                            }
+                            <td class="align-middle">@item.OverallStatus.Value</td>
+
+                            @if (item.OverallStatusId == 1)
+                            {
+                                <td class="align-middle">
+                                    <button class="text-white btn btn-primary mx-1 mb-0 align-middle">Pay Now ($@itemTotal)</button>
+                                    <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <a id="2delete @item.Id" asp-controller="Plane" asp-action="DeleteFromMyPlanes" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Delete</a>
+                                </td>
+
+                            }@if (item.OverallStatusId != 1)
+                            {
+                                <td class="align-middle">
+                                    <button class="text-white btn btn-success mx-1 mb-0 align-middle">Paid</button>
+                                </td>
+                            }
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<script>
+
+    function firstHide(id) {
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+</script>

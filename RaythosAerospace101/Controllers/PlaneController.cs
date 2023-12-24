@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
 using RaythosAerospace101.ViewModels;
@@ -143,6 +144,7 @@ namespace RaythosAerospace101.Controllers
         // GET: CustomizeNew
         public IActionResult CustomizeNew(int id)
         {
+
             var currObj = _db.Planes.Find(id);
             var viewModel = new FloorPlanDesignScheme
             {
@@ -158,36 +160,35 @@ namespace RaythosAerospace101.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CustomizeNew(CustomizedPlane customizedPlane, string formAction)
         {
-            if (HttpContext.Session.GetString("role") == "3" || HttpContext.Session.GetString("role") == "4")
-            {
-                customizedPlane.Id = 0;
-                customizedPlane.CurrentDate = DateTime.Now;
-
-                if (formAction == "AddToBasket")
-                    customizedPlane.IsBasket = true;
-                else
-                    customizedPlane.IsBasket = false;
-
-                customizedPlane.UserEmail = HttpContext.Session.GetString("email");
-
-                customizedPlane.OverallStatusId = 1;
-
-                _db.CustomizedPlanes.Add(customizedPlane);
-                _db.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-            else
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
             {
                 return RedirectToAction("OnlyUsers", "Messages");
             }
+
+            customizedPlane.Id = 0;
+            customizedPlane.CurrentDate = DateTime.Now;
+
+            if (formAction == "AddToBasket")
+                customizedPlane.IsBasket = true;
+            else
+                customizedPlane.IsBasket = false;
+
+            customizedPlane.UserEmail = HttpContext.Session.GetString("email");
+
+            customizedPlane.OverallStatusId = 1;
+
+            _db.CustomizedPlanes.Add(customizedPlane);
+            _db.SaveChanges();
+
+            return RedirectToAction("MyPlanes", "Plane");
+
         }
 
         // GET: Add
         public IActionResult Add()
         {
             string[] data = { HttpContext.Session.GetString("role") };
-            if(HttpContext.Session.GetString("role") != "4" )
+            if (HttpContext.Session.GetString("role") != "4")
             {
                 return RedirectToAction("OnlyAdmin", "Messages");
             }
@@ -201,11 +202,11 @@ namespace RaythosAerospace101.Controllers
                 return RedirectToAction("OnlyAdmin", "Messages");
             }
             var currObj = _db.Planes.Find(id);
-            if(currObj.PlaneStatusId == 2)
+            if (currObj.PlaneStatusId == 2)
             {
                 currObj.PlaneStatusId = 1;
             }
-            else if(currObj.PlaneStatusId == 1)
+            else if (currObj.PlaneStatusId == 1)
             {
                 currObj.PlaneStatusId = 2;
             }
@@ -277,7 +278,7 @@ namespace RaythosAerospace101.Controllers
                 if (file != null && file.Length > 0)
                 {
                     // Define the folder where you want to save the images
-                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","images", "planes");
+                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "planes");
 
                     // Ensure the folder exists, create if not
                     if (!Directory.Exists(uploadFolder))
@@ -286,7 +287,7 @@ namespace RaythosAerospace101.Controllers
                     }
 
                     // Generate a unique filename for the uploaded file
-                     uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
 
                     // Combine the folder path and the unique filename
                     var filePath = Path.Combine(uploadFolder, uniqueFileName);
@@ -318,6 +319,33 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult MyPlanes()
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
+            string loggedEmail = HttpContext.Session.GetString("email");
+            IEnumerable<CustomizedPlane> objList = _db.CustomizedPlanes
+                    .Include(cp => cp.Plane)
+                    .Include(cp => cp.OverallStatus)
+                    .Include(cp => cp.PlaneDesignScheme)
+                    .Include(cp => cp.FloorPlan)
+                    .Where(cp => cp.UserEmail == loggedEmail)
+                    .ToList();
+            return View(objList);
+        }
 
+        public IActionResult DeleteFromMyPlanes(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
+            var currObj = _db.CustomizedPlanes.Find(id);
+            _db.CustomizedPlanes.Remove(currObj);
+            _db.SaveChanges();
+            return RedirectToAction("MyPlanes", "Plane");
+        }
     }
 }
