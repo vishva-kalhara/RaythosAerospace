@@ -100,8 +100,15 @@
                         <li>
                             <a style="margin-bottom: 5px"
                                class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "ManageOrders" ? "active" : "") "
-                               asp-controller="Admin" asp-action="ManageOrders">
-                                Manage Orders
+                               asp-controller="Admin" asp-action="AeroplaneOrders">
+                                Aeroplane Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a style="margin-bottom: 5px"
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "ManageOrders" ? "active" : "") "
+                               asp-controller="Admin" asp-action="OtherOrders">
+                                Other Orders
                             </a>
                         </li>
                         <li>

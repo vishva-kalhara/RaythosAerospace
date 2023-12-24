@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RaythosAerospace101.Models.CustomizedPlane>
+@{
+    ViewData["Title"] = "Aeroplane Orders";
+}
+
+<div class="container-md pt-5">
+
+    @*<div class="d-flex w-100" style="justify-content:end">
+            <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
+        </div>*@
+    <div class="row">
+        <div style="width: 100%; display:flex; justify-content:end;">
+            <div style="display: flex">
+                <button class="text-white btn btn-success mx-1 mb-0 align-middle">Aeroplanes</button>
+                <button class=" btn btn-warning mx-1 mb-0 align-middle">Spare Parts</button>
+            </div>
+
+        </div>
+
+        <div style="min-height:400px" class="mt-4">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-hover mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">Model</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Current Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="align-middle">@item.Plane.Name</td>
+
+                                @{
+                                    var itemTotal = @item.Plane.Price + @item.FloorPlan.Price + @item.PlaneDesignScheme.Price;
+                                }
+                                <td class="align-middle">$@itemTotal</td>
+
+                                <td class="align-middle">@item.OverallStatus.Value</td>
+
+                                @if (item.OverallStatusId < 5)
+                                {
+                                    <td class="align-middle">
+                                        <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-success mx-1 mb-0 align-middle">Finish this stage</a>
+                                        <a id="2delete @item.Id" asp-controller="Admin" asp-action="FinishStage" asp-route-Id="@item.Id" class="d-none text-black btn btn-warning mx-1 mb-0 align-middle">Confirm to Finish this stage</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="align-middle">
+                                        <!--<a class="text-white btn btn-success mx-1 mb-0 align-middle">-->@*Finish this stage*@<!--</a>-->
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2>No Aeroplane Orders Found</h2>
+            }
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function firstHide(id) {
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+</script>
