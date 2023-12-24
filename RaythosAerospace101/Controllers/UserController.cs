@@ -80,6 +80,68 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult Promote(string id)
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
+
+            var user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return RedirectToAction("NotFound", "Messages");
+            }
+
+            if (user.RoleId == 3)
+            {
+                user.RoleId = 4;
+            }
+            else if (user.RoleId == 4)
+            {
+                user.RoleId = 3;
+            }
+            else
+            {
+                return RedirectToAction("UnexpectedError", "Messages");
+            }
+
+            _db.Users.Update(user);
+            _db.SaveChanges();
+            return RedirectToAction("UserList", "Admin");
+        }
+        
+        public IActionResult Block(string id)
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyAdmin", "Messages");
+            }
+
+            var user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return RedirectToAction("NotFound", "Messages");
+            }
+
+            if (user.UsrStatusId == 1)
+            {
+                user.UsrStatusId = 3;
+            }
+            else if (user.UsrStatusId == 3)
+            {
+                user.UsrStatusId = 1;
+            }
+            else
+            {
+                return RedirectToAction("UnexpectedError", "Messages");
+            }
+
+            _db.Users.Update(user);
+            _db.SaveChanges();
+            return RedirectToAction("UserList", "Admin");
+        }
+
         public IActionResult Logout()
         {
             return View();

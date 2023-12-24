@@ -5,9 +5,9 @@
 
 <div class="container-md pt-5">
 
-    <div class="d-flex w-100" style="justify-content:end">
+    @*<div class="d-flex w-100" style="justify-content:end">
         <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
-    </div>
+    </div>*@
 
     <div style="min-height:400px">
         @if (Model.Count() > 0)
@@ -15,33 +15,46 @@
             <table class="table table-hover mb-5">
                 <thead>
                     <tr>
-                        <th scope="col">Model</th>
-                        <th scope="col">Mack</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Current Role</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @*@foreach (var item in Model)
+                    @foreach (var item in Model)
                     {
-                        @if (item.PlaneStatusId != 3)
-                        {
-                            <tr>
-                                <td class="align-middle">@item.Name</td>
-                                <td class="align-middle">@item.Mach</td>
-                                <td class="align-middle">$@item.Price</td>
+                        <tr>
+                            <td class="align-middle">@item.FirstName</td>
+                            <td class="align-middle">@item.Country </td>
+                            <td class="align-middle">@(item.RoleId == 3 ? "Customer" : "Admin")</td>
+                            @if(item.UsrStatusId == 2)
+                            {
                                 <td class="align-middle">
-                                    <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
-                                    <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.PlaneStatusId == 2? "Show" : "Hide")</a>
-                                    <a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <button disabled  class="text-white btn btn-secondary mx-1 mb-0 align-middle">Account is Closed</button>
                                 </td>
-                            </tr>
-                        }
-
-                    }*@
+                            }@if(item.UsrStatusId != 2)
+                            {
+                                <td class="align-middle">
+                                    <a asp-controller="User" asp-action="Promote" asp-route-Id="@item.Email" class="btn btn-warning mx-1 mb-0 align-middle">@(item.RoleId == 3 ? "Promote to Admin" : "Demote to Customer")</a>
+                                    <a id="1delete @item.Email" onclick="firstHide('@item.Email', '@item.UsrStatusId');" class="text-white btn btn-danger mx-1 mb-0 align-middle">@(item.UsrStatusId == 1 ? "Block" :  "Unblock")</a>
+                                    <a id="2delete @item.Email" asp-controller="User" asp-action="Block" asp-route-Id="@item.Email" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">@(item.UsrStatusId == 1 ? "Confirm Block" :  "Confirm Unblock")</a>
+                                </td>
+                            }
+                            
+                        </tr> 
+                    }
                 </tbody>
             </table>
         }
     </div>
 </div>
 
+<script>
+
+    function firstHide(id, statusId) {
+        alert(statusId)
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+</script>

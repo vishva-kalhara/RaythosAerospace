@@ -39,8 +39,6 @@ namespace RaythosAerospace101.Controllers
         {
             return View();
         }
-        
-        
 
         public IActionResult FloorPlans()
         {
@@ -61,7 +59,8 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult UserList()
         {
-            return View();
+            IEnumerable<User> objList = _db.Users;
+            return View(objList);
         }
         
         public IActionResult NewDesignScheme()
