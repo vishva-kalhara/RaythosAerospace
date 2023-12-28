@@ -33,7 +33,7 @@
                             @if (item.OverallStatusId == 1)
                             {
                                 <td class="align-middle">
-                                    <button class="text-white btn btn-primary mx-1 mb-0 align-middle">Pay Now ($@itemTotal)</button>
+                                    <a asp-controller="Plane" asp-action="Payment" asp-route-Id="@item.Id" class="text-white btn btn-primary mx-1 mb-0 align-middle">Pay Now ($@itemTotal)</a>
                                     <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Delete</a>
                                     <a id="2delete @item.Id" asp-controller="Plane" asp-action="DeleteFromMyPlanes" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Delete</a>
                                 </td>

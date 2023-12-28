@@ -347,5 +347,54 @@ namespace RaythosAerospace101.Controllers
             _db.SaveChanges();
             return RedirectToAction("MyPlanes", "Plane");
         }
+
+        public IActionResult Payment(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
+            ViewBag.primaryKey = id;
+            return View();
+        }
+
+        public IActionResult PayNow(int id, string nameOnCard, string cardNumber, string expDate, string cvv)
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
+            ViewBag.primaryKey = id;
+
+            if (string.IsNullOrEmpty(nameOnCard))
+            {
+                ViewBag.NameOnCardError = "Name on the card can't be empty";
+            }
+            if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length != 16)
+            {
+                ViewBag.CardNumberError = "Incorrect Card Number";
+            }
+
+            if (string.IsNullOrEmpty(expDate))
+            {
+                ViewBag.ExpDateError = "Field is empty";
+            }
+
+            if (string.IsNullOrEmpty(cvv))
+            {
+                ViewBag.CvvError = "Error";
+            }
+            if (ViewBag.NameOnCardError == null && ViewBag.CardNumberError == null && ViewBag.ExpDateError == null && ViewBag.CvvError == null)
+            {
+                var currObj = _db.CustomizedPlanes.Find(id);
+                currObj.OverallStatusId = 2;
+                _db.CustomizedPlanes.Update(currObj);
+                _db.SaveChanges();
+                return RedirectToAction("MyPlanes");
+            }
+
+            // If there are errors, return to the payment view with error messages
+            return View("Payment");
+        }
     }
 }
