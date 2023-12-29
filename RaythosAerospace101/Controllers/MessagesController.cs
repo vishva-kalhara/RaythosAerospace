@@ -43,6 +43,11 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        public IActionResult AlreadyDeleted()
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")

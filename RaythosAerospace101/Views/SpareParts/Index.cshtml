@@ -28,12 +28,22 @@
                         {
                             <tr>
                                 <td class="align-middle">@item.Title</td>
-                                <td class="align-middle">$@item.Qty</td>
-                                <td class="align-middle">$@item.Price</td>
                                 <td class="align-middle">
-                                    @*<a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
-                                    <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.PlaneStatusId == 2? "Show" : "Hide")</a>
-                                    <*@<!--a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>-->
+                                    <form method="post" asp-controller="SpareParts" asp-action="UpdateQty" asp-route-Id="@item.Id">
+                                        <div class="d-flex">
+                                            <input name="qty" type="number" style="max-width: 65px" class="form-control" placeholder="qty" value="@item.Qty">
+                                            <a id="1update @item.Id" onclick="firstHideQty(@item.Id)" class="btn btn-primary text-white mx-1 mb-0 align-middle align-items-center">Update</a>
+                                            <input id="2update @item.Id" style="max-width: 125px" type="submit" class="d-none btn btn-primary mx-1 mb-0 align-middle align-items-center" value="Confirm Update">
+                                        </div>
+                                    </form>
+
+                                </td>
+                                <td class="align-middle">$@item.Price</td>
+                                <td class="align-middle d-flex">
+                                    <a asp-controller="SpareParts" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                    <a asp-controller="SpareParts" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.Stat == "Hidden"? "Show" : "Hide")</a>
+                                    <a id="1delete @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                    <a id="2delete @item.Id" asp-controller="SpareParts" asp-action="Delete" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Delete</a>
                                 </td>
                             </tr>
                         }
@@ -44,3 +54,15 @@
     </div>
 </div>
 
+<script>
+
+    function firstHide(id) {
+        document.getElementById("1delete " + id).classList.add("d-none");
+        document.getElementById("2delete " + id).classList.remove("d-none");
+    }
+
+    function firstHideQty(id) {
+        document.getElementById("1update " + id).classList.add("d-none");
+        document.getElementById("2update " + id).classList.remove("d-none");
+    }
+</script>

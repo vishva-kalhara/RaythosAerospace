@@ -5,6 +5,7 @@ using RaythosAerospace101.Data;
 using RaythosAerospace101.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,12 +26,17 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult Index()
         {
+            //if (HttpContext.Session.GetString("role") != "4")
+            //    return RedirectToAction("OnlyAdmin", "Messages");
             IEnumerable<SparePart> objList = _db.SpareParts;
             return View(objList);
         }
 
         public IActionResult New()
         {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
             return View();
         }
 
@@ -38,17 +44,199 @@ namespace RaythosAerospace101.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult New(SparePart obj)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
 
+            var file = Request.Form.Files["img_sparePart"];
+
+            #region // Input Validation
+            if (obj.Brand == null || obj.Brand == "")
+                ModelState.AddModelError("addSparePart", "Brand Field Can't be empty");
+            if (obj.Title == null || obj.Title == "")
+                ModelState.AddModelError("addSparePart", "Title Field Can't be empty");
+            if (obj.Description == null || obj.Description == "")
+                ModelState.AddModelError("addSparePart", "Description Can't be empty");
+            if (obj.ManufacturedCountry == null || obj.ManufacturedCountry == "")
+                ModelState.AddModelError("addSparePart", "Country Field Can't be empty");
+            if (obj.Price == 0 || obj.Price == 0.0)
+                ModelState.AddModelError("addSparePart", "Price Field Can't be empty");
+            if (obj.Price < 0)
+                ModelState.AddModelError("addSparePart", "Price must be a positive number");
+            if (file == null)
+                ModelState.AddModelError("addSparePart", "Image Field Can't be empty");
+
+            #endregion
+
+
+            if (ModelState.IsValid)
+            {
+                // Define the folder where you want to save the images
+                var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "spareParts");
+
+                // Ensure the folder exists, create if not
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+
+                // Generate a unique filename for the uploaded file
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+
+                // Combine the folder path and the unique filename
+                var filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                // Save the file to the server
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                obj.ImagePath = uniqueFileName;
+                obj.Stat = "Active";
+                obj.Qty = 0;
+
+                _db.SpareParts.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            var sparePart = _db.SpareParts.Find(id);
+            if (sparePart == null)
+                return RedirectToAction("NotFound", "Messages");
+
+            return View(sparePart);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(SparePart obj)
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            var file = Request.Form.Files["img_sparePart"];
+
+            #region // Input Validation
+            if (obj.Brand == null || obj.Brand == "")
+                ModelState.AddModelError("addSparePart", "Brand Field Can't be empty");
+            if (obj.Title == null || obj.Title == "")
+                ModelState.AddModelError("addSparePart", "Title Field Can't be empty");
+            if (obj.Description == null || obj.Description == "")
+                ModelState.AddModelError("addSparePart", "Description Can't be empty");
+            if (obj.ManufacturedCountry == null || obj.ManufacturedCountry == "")
+                ModelState.AddModelError("addSparePart", "Country Field Can't be empty");
+            if (obj.Price == 0 || obj.Price == 0.0)
+                ModelState.AddModelError("addSparePart", "Price Field Can't be empty");
+            if (obj.Price < 0)
+                ModelState.AddModelError("addSparePart", "Price must be a positive number");
+            
+
+            #endregion
+
+            if (ModelState.IsValid)
+            {
+                if (file != null && file.Length > 0)
+                {
+                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "spareParts");
+
+                    // Ensure the folder exists, create if not
+                    if (!Directory.Exists(uploadFolder))
+                    {
+                        Directory.CreateDirectory(uploadFolder);
+                    }
+
+                    // Generate a unique filename for the uploaded file
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+
+                    // Combine the folder path and the unique filename
+                    var filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                    // Save the file to the server
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImagePath = uniqueFileName;
+                }
+                _db.SpareParts.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
             return View();
         }
 
-        public void ChangeQTY()
+        public IActionResult UpdateQty(int id, int qty)
         {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            var sparePart = _db.SpareParts.Find(id);
+
+            if (sparePart == null)
+                return RedirectToAction("NotFound", "Messages");
+            if (sparePart.Stat == "Deleted")
+                return RedirectToAction("AlreadyDeleted", "Messages");
+
+            sparePart.Qty = qty;
+            _db.SpareParts.Update(sparePart);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Hide(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            var sparePart = _db.SpareParts.Find(id);
+
+            if (sparePart == null)
+                return RedirectToAction("NotFound", "Messages");
+
+            if (sparePart.Stat == "Active")
+                sparePart.Stat = "Hidden";
+            else if (sparePart.Stat == "Hidden")
+                sparePart.Stat = "Active";
+            else if (sparePart.Stat == "Deleted")
+                return RedirectToAction("AlreadyDeleted", "Messages");
+
+            _db.SpareParts.Update(sparePart);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            var sparePart = _db.SpareParts.Find(id);
+
+            if (sparePart == null)
+                return RedirectToAction("NotFound", "Messages");
+
+            if (sparePart.Stat == "Active" || sparePart.Stat == "Hidden")
+                sparePart.Stat = "Deleted";
+            else if (sparePart.Stat == "Deleted")
+                return RedirectToAction("AlreadyDeleted", "Messages");
+
+            _db.SpareParts.Update(sparePart);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Overview(int id)
+        {
+            return View();
         }
     }
 }

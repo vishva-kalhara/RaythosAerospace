@@ -1,7 +1,78 @@
-﻿
+﻿@model RaythosAerospace101.Models.SparePart
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<section style="display: flex; padding: 0; ">
+    <div style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    padding-top: 100px;
+                    padding-bottom: 100px;
+                    box-sizing: border-box;
+                ">
+        <form enctype="multipart/form-data" method="post" asp-controller="SpareParts" asp-action="Edit">
+            <div style="flex-direction: column; display: flex; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                <div class="typo__heading__3" style="background-color: #ededed; width: 100%; padding: 24px; ">
+                    New Spare Part
+                </div>
+                <div style="flex-direction: column; display: flex; padding: 24px;">
+                    <input type="text"
+                           name="ImagePath"
+                           placeholder="Image Path"
+                           style="margin-top: 16px" value="@Model.ImagePath" readonly />
+                    <input type="text"
+                           name="Stat"
+                           placeholder="Stat"
+                           class="d-none"
+                           style="margin-top: 16px" value="@Model.Stat" readonly />
+                    <input type="text"
+                           name="Qty"
+                           placeholder="Stat"
+                           class="d-none"
+                           style="margin-top: 16px" value="@Model.Qty" readonly />
+                    <input accept="image/*" type="file" name="img_sparePart" id="img_sparePart" />
+                    <input type="text"
+                           name="Brand"
+                           placeholder="Brand"
+                           style="margin-top: 16px"
+                           value="@Model.Brand"/>
+                    <input type="text"
+                           name="Title"
+                           placeholder="Title"
+                           style="margin-top: 16px"
+                           value="@Model.Title"/>
+                    <textarea name="Description" id="" cols="" rows="1" class="title typo__para__1" style="margin-top: 16px;" placeholder="Description">@Model.Description</textarea>
+                    <input type="text"
+                           name="ManufacturedCountry"
+                           placeholder="Manufactured Country"
+                           style="margin-top: 16px" 
+                           value="@Model.ManufacturedCountry"/>
+                    <input type="number"
+                           name="Price"
+                           placeholder="Price"
+                           style="margin-top: 10px" 
+                           value="@Model.Price"/>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="right" style="margin-top: 30px;">
+                        <div style="display: flex; gap: 16px;">
+                            <button type="button" class="text__button">Cancel</button>
+                            <input type="submit" class="filled__button" value="Update">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+
 

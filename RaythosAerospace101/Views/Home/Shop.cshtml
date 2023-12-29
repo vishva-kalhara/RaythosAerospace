@@ -28,16 +28,16 @@
         <div class="typo__heading__2 ">Spare Parts</div>
     </div>
     <div class="row mt-2">
-        @foreach (var item in Model.Planes)
+        @foreach (var item in Model.SpareParts)
         {
-            @if (item.PlaneStatusId == 1)
+            @if (item.Stat == "Active")
             {
                 <div class="col-12 col-sm-6 col-md-4 mt-3">
                     <div class="card__shop__plane">
-                        @*<div style="background-image: url('../../images/planes/@Model.Image');"></div>*@
-                        <div class="typo__subHeading__3 mt-4">@item.Name</div>
+                        <div style="background-image: url('../../images/spareParts/@item.ImagePath');"></div>
+                        <div class="typo__subHeading__3 mt-4">@item.Brand @item.Title</div>
                         <div style="margin-top: 36px;" class="center">
-                            <a asp-controller="Plane" asp-action="Overview" asp-route-Id="@item.Id" style="text-decoration:none" class="filled__button">Shop Now</a>
+                            <a asp-controller="SpareParts" asp-action="Overview" asp-route-Id="@item.Id" style="text-decoration:none" class="filled__button">Shop Now</a>
                         </div>
                     </div>
                 </div>
