@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RaythosAerospace101.Data;
 
 namespace RaythosAerospace101.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229062742_removeInventory")]
+    partial class removeInventory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +97,29 @@ namespace RaythosAerospace101.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FloorPlans");
+                });
+
+            modelBuilder.Entity("RaythosAerospace101.Models.InvInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("currDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserEmail");
+
+                    b.ToTable("InvInvoice");
                 });
 
             modelBuilder.Entity("RaythosAerospace101.Models.OverallStatus", b =>
@@ -241,31 +266,6 @@ namespace RaythosAerospace101.Migrations
                     b.ToTable("SpareParts");
                 });
 
-            modelBuilder.Entity("RaythosAerospace101.Models.SparePartOrder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("SparePartId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("currentDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SparePartId");
-
-                    b.HasIndex("UserEmail");
-
-                    b.ToTable("SparePartOrders");
-                });
-
             modelBuilder.Entity("RaythosAerospace101.Models.User", b =>
                 {
                     b.Property<string>("Email")
@@ -383,6 +383,13 @@ namespace RaythosAerospace101.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RaythosAerospace101.Models.InvInvoice", b =>
+                {
+                    b.HasOne("RaythosAerospace101.Models.User", null)
+                        .WithMany("InvInvoices")
+                        .HasForeignKey("UserEmail");
+                });
+
             modelBuilder.Entity("RaythosAerospace101.Models.Plane", b =>
                 {
                     b.HasOne("RaythosAerospace101.Models.PlaneStatus", "PlaneStatus")
@@ -392,23 +399,6 @@ namespace RaythosAerospace101.Migrations
                         .IsRequired();
 
                     b.Navigation("PlaneStatus");
-                });
-
-            modelBuilder.Entity("RaythosAerospace101.Models.SparePartOrder", b =>
-                {
-                    b.HasOne("RaythosAerospace101.Models.SparePart", "SparePart")
-                        .WithMany("SparePartOrders")
-                        .HasForeignKey("SparePartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RaythosAerospace101.Models.User", "User")
-                        .WithMany("SparePartOrders")
-                        .HasForeignKey("UserEmail");
-
-                    b.Navigation("SparePart");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RaythosAerospace101.Models.User", b =>
@@ -455,16 +445,11 @@ namespace RaythosAerospace101.Migrations
                     b.Navigation("Planes");
                 });
 
-            modelBuilder.Entity("RaythosAerospace101.Models.SparePart", b =>
-                {
-                    b.Navigation("SparePartOrders");
-                });
-
             modelBuilder.Entity("RaythosAerospace101.Models.User", b =>
                 {
                     b.Navigation("CustomizedPlanes");
 
-                    b.Navigation("SparePartOrders");
+                    b.Navigation("InvInvoices");
                 });
 
             modelBuilder.Entity("RaythosAerospace101.Models.UserRole", b =>

@@ -40,6 +40,7 @@ namespace RaythosAerospace101.Models
         public UserStatus UserStatus { get; set; }
 
         public List<CustomizedPlane> CustomizedPlanes { get; set; }
-        public List<InvInvoice> InvInvoices { get; set; }
+
+        public List<SparePartOrder> SparePartOrders { get; set; }
     }
 }

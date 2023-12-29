@@ -15,13 +15,13 @@ namespace RaythosAerospace101.Models
         public double price { get; set; }
 
 
-        [ForeignKey("Inventory")]
-        public int InventoryId { get; set; }
-        public Inventory Inventory { get; set; }
+        //[ForeignKey("Inventory")]
+        //public int InventoryId { get; set; }
+        //public Inventory Inventory { get; set; }
 
 
-        [ForeignKey("User")]
-        public string UserEmail { get; set; }
-        public User User { get; set; }
+        //[ForeignKey("User")]
+        //public string UserEmail { get; set; }
+        //public User User { get; set; }
     }
 }

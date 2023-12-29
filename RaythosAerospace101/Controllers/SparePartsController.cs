@@ -35,5 +35,9 @@ namespace RaythosAerospace101.Controllers
         {
             return View();
         }
+
+        public void ChangeQTY()
+        {
+        }
     }
 }

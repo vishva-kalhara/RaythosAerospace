@@ -15,9 +15,9 @@ namespace RaythosAerospace101.Models
         public int qty { get; set; }
 
 
-        [ForeignKey("SparePart")]
-        public int SparePartId { get; set; }
-        public SparePart SpareParts { get; set; }
+        //[ForeignKey("SparePart")]
+        //public int SparePartId { get; set; }
+        //public SparePart SpareParts { get; set; }
 
     }
 }
