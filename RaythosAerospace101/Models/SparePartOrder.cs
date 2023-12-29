@@ -11,7 +11,10 @@ namespace RaythosAerospace101.Models
     {
         [Key]
         public int Id { get; set; }
+
         public DateTime currentDateTime { get; set; }
+
+        public string Status { get; set; } // InCart, Paid, 
 
         [ForeignKey("SparePart")]
         public int SparePartId { get; set; }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RaythosAerospace101.Data;
 
 namespace RaythosAerospace101.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229071000_addConditionToSparePartOrder")]
+    partial class addConditionToSparePartOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,6 +213,21 @@ namespace RaythosAerospace101.Migrations
                     b.ToTable("PlaneStatuses");
                 });
 
+            modelBuilder.Entity("RaythosAerospace101.Models.SPCondition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SPConditions");
+                });
+
             modelBuilder.Entity("RaythosAerospace101.Models.SparePart", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +253,9 @@ namespace RaythosAerospace101.Migrations
                     b.Property<int>("Qty")
                         .HasColumnType("int");
 
+                    b.Property<int>("SPConditionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Stat")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,6 +263,8 @@ namespace RaythosAerospace101.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SPConditionId");
 
                     b.ToTable("SpareParts");
                 });
@@ -403,6 +425,17 @@ namespace RaythosAerospace101.Migrations
                     b.Navigation("PlaneStatus");
                 });
 
+            modelBuilder.Entity("RaythosAerospace101.Models.SparePart", b =>
+                {
+                    b.HasOne("RaythosAerospace101.Models.SPCondition", "SPCondition")
+                        .WithMany("SpareParts")
+                        .HasForeignKey("SPConditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SPCondition");
+                });
+
             modelBuilder.Entity("RaythosAerospace101.Models.SparePartOrder", b =>
                 {
                     b.HasOne("RaythosAerospace101.Models.SparePart", "SparePart")
@@ -462,6 +495,11 @@ namespace RaythosAerospace101.Migrations
             modelBuilder.Entity("RaythosAerospace101.Models.PlaneStatus", b =>
                 {
                     b.Navigation("Planes");
+                });
+
+            modelBuilder.Entity("RaythosAerospace101.Models.SPCondition", b =>
+                {
+                    b.Navigation("SpareParts");
                 });
 
             modelBuilder.Entity("RaythosAerospace101.Models.SparePart", b =>

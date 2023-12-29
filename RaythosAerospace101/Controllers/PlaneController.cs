@@ -19,9 +19,6 @@ namespace RaythosAerospace101.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _db;
 
-        //[BindProperty]
-        //public FloorPlanDesignScheme ViewModel { get; private set; }
-
         public PlaneController(IWebHostEnvironment webHostEnvironment, ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _webHostEnvironment = webHostEnvironment;
@@ -31,7 +28,8 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("MyPlanes");
+            // Need to Refactor Admin/Planes
+            return RedirectToAction("MyPlanes"); 
         }
 
         // GET: Edit
