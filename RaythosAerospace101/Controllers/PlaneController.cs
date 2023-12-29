@@ -31,7 +31,7 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("MyPlanes");
         }
 
         // GET: Edit

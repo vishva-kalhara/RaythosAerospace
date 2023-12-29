@@ -39,10 +39,10 @@ namespace RaythosAerospace101.Controllers
         
         public IActionResult AeroplaneOrders()
         {
-            //if (HttpContext.Session.GetString("role") != "4")
-            //{
-            //    return RedirectToAction("OnlyUsers", "Messages");
-            //}
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
             IEnumerable<CustomizedPlane> objList = _db.CustomizedPlanes
                     .Include(cp => cp.Plane)
                     .Include(cp => cp.OverallStatus)
@@ -56,10 +56,10 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult FinishStage(int id)
         {
-            //if (HttpContext.Session.GetString("role") != "4")
-            //{
-            //    return RedirectToAction("OnlyUsers", "Messages");
-            //}
+            if (HttpContext.Session.GetString("role") != "4")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
             var currObj = _db.CustomizedPlanes.Find(id);
             if(currObj.OverallStatusId < 5)
             {

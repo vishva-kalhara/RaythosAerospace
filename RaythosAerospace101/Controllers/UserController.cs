@@ -142,9 +142,16 @@ namespace RaythosAerospace101.Controllers
             return RedirectToAction("UserList", "Admin");
         }
 
-        public IActionResult Logout()
+        public IActionResult SignOut101()
         {
-            return View();
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
+            HttpContext.Session.SetString("email", "");
+            HttpContext.Session.SetString("role", "");
+            return RedirectToAction("Index", "Home");
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,13 @@ namespace RaythosAerospace101.Controllers
 {
     public class MessagesController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public MessagesController(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
         // GET: Success
         public IActionResult Index()
         {
@@ -31,6 +40,15 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult UnexpectedError()
         {
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            {
+                return RedirectToAction("OnlyUsers", "Messages");
+            }
             return View();
         }
     }

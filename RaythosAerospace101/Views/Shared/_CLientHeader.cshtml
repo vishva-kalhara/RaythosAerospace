@@ -99,14 +99,14 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "ManageOrders" ? "active" : "") "
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "AeroplaneOrders" ? "active" : "") "
                                asp-controller="Admin" asp-action="AeroplaneOrders">
                                 Aeroplane Orders
                             </a>
                         </li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "ManageOrders" ? "active" : "") "
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "OtherOrders" ? "active" : "") "
                                asp-controller="Admin" asp-action="OtherOrders">
                                 Other Orders
                             </a>
@@ -125,8 +125,8 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "Logout" ? "active" : "") "
-                               asp-controller="User" asp-action="Logout">
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Messages" && ViewContext.RouteData.Values["Action"].ToString() == "Logout" ? "active" : "") "
+                               asp-controller="Messages" asp-action="Logout">
                                 Logout
                             </a>
                         </li>
