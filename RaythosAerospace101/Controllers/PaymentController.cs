@@ -60,5 +60,14 @@ namespace RaythosAerospace101.Controllers
             ViewBag.targetFunctionality = targetFunctionality;
             return View();
         }
+
+        public IActionResult History(string id, int qty, double totalPrice, string targetFunctionality)
+        {
+            ViewBag.id = id;
+            ViewBag.totalPrice = totalPrice;
+            ViewBag.targetFunctionality = targetFunctionality;
+            ViewBag.qty = qty;
+            return View();
+        }
     }
 }

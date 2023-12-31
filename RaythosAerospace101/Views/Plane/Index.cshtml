@@ -1,57 +1,46 @@
-﻿
+﻿@model IEnumerable<RaythosAerospace101.Models.Plane>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Planes";
 }
 
+<div class="container-md pt-5">
 
-<!-- <section >
-    <div class="spinner"></div>
-</section> -->
-<section style="background-color: #F5F7F5; min-height: 85vh;" class="v__center">
-    <div class="width920" style=" box-sizing: border-box;">
-        <div class="typo__heading__2 center">Bombraider Challenger 650</div>
-        <img src="../../assets/app/planes/challenger650.png" class="img__single__product" alt="">
-        <div style="margin-top: 24px;" class="center">
-            <button type="button" class="filled__button">Customize Now</button>
-        </div>
+    <div class="d-flex w-100" style="justify-content:end">
+        <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
     </div>
-</section>
-<section style="background-color: white;" class="v__center">
-    <div class="width920">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-md-6" style="margin: 16px 0; box-sizing: border-box; padding-right: 36px;">
-                    <div class="typo__heading__3">EXCEPTIONAL SERVICE, SURROUNDINGS, AND SPACE</div>
-                    <div style="margin-top: 8px;" class="typo__para__1">Enjoy effortless nonstop transcontinental travel—from locations like Los Angeles, California, to Aruba—aboard the Bombardier Challenger 650 large private jet. The generously sized, well-appointed cabin offers a luxurious experience that is further elevated by the personalized service of a NetJets flight attendant.Capable of achieving a high-speed cruise of 540 miles per hour, this stunning aircraft with excellent range is equipped with state-of-the-art avionics. Premium materials and sophisticated detailing create its timeless style.</div>
-                </div>
-                <div class="center col-12 col-md-6" style="margin: 16px 0; ">
-                    <div>
-                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
-                            <div class="spec__item__range"></div>
-                            <div class="spec__item__txt__1">7,408</div>
-                            <div class="spec__item__txt__2">km</div>
-                        </div>
-                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
-                            <div class="spec__item__speed"></div>
-                            <div class="spec__item__txt__1">085</div>
-                            <div class="spec__item__txt__2">Mach</div>
-                        </div>
-                        <div style="margin-bottom: 14px; display: flex; align-items: center;">
-                            <div class="spec__item__range"></div>
-                            <div class="spec__item__txt__1">115</div>
-                            <div class="spec__item__txt__2">ft3 Baggage</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin: 72px 0 24px 0;" class="row">
-                <div class="col-12">
-                    <div class="typo__heading__3 center">Impressive Interior</div>
-                    <div style="margin-top: 8px;" class="typo__para__1">The elegant, flat-floor cabin of our Challenger 650 presents defined areas with seating options to meet your needs and ensure your comfort, including club seats that recline, a four-person conference table, and a divan that converts into a bed.</div>
 
-                </div>
-            </div>
-        </div>
+    <div style="min-height:400px">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Model</th>
+                        <th scope="col">Mach</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.PlaneStatusId != 3)
+                        {
+                            <tr>
+                                <td class="align-middle">@item.Name</td>
+                                <td class="align-middle">@item.Mach</td>
+                                <td class="align-middle">$@item.Price</td>
+                                <td class="align-middle">
+                                    <a asp-controller="Plane" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 mb-0 align-middle">Edit</a>
+                                    <a asp-controller="Plane" asp-action="Hide" asp-route-Id="@item.Id" class="btn btn-warning mx-1 mb-0 align-middle">@(item.PlaneStatusId == 2? "Show" : "Hide")</a>
+                                    <a asp-controller="Plane" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 mb-0 align-middle">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        }
     </div>
-</section>
-
+</div>

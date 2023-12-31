@@ -28,8 +28,11 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult Index()
         {
-            // Need to Refactor Admin/Planes
-            return RedirectToAction("MyPlanes"); 
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            IEnumerable<Plane> objList = _db.Planes;
+            return View(objList);
         }
 
         // GET: Edit

@@ -234,6 +234,11 @@ namespace RaythosAerospace101.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult MyOrders()
+        {
+            return View();
+        }
+
         public IActionResult Overview(int id, bool isError)
         {
             var sparePart = _db.SpareParts.Find(id);
@@ -309,7 +314,7 @@ namespace RaythosAerospace101.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Cart", "Home");
+            return RedirectToAction("History", "Payment");
 
         }
 

@@ -41,16 +41,29 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "MyPlanes" ? "active" : "") "
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Cart" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "") "
+                               asp-controller="Cart" asp-action="Index">
+                                Cart
+                            </a>
+                        </li><li>
+                            <a style="margin-bottom: 5px"
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Plane" && ViewContext.RouteData.Values["Action"].ToString() == "MyPlanes" ? "active" : "") "
                                asp-controller="Plane" asp-action="MyPlanes">
                                 My Planes
                             </a>
                         </li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "MyOrders" ? "active" : "") "
-                               asp-controller="Home" asp-action="MyOrders">
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "SpareParts" && ViewContext.RouteData.Values["Action"].ToString() == "MyOrders" ? "active" : "") "
+                               asp-controller="SpareParts" asp-action="MyOrders">
                                 Other Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a style="margin-bottom: 5px"
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Payment" && ViewContext.RouteData.Values["Action"].ToString() == "History" ? "active" : "") "
+                               asp-controller="Payment" asp-action="History">
+                                Payment History
                             </a>
                         </li>
                         <li>
@@ -67,8 +80,8 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "Planes" ? "active" : "") "
-                               asp-controller="Admin" asp-action="Planes">
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Plane" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "") "
+                               asp-controller="Plane" asp-action="Index">
                                 Planes
                             </a>
                         </li>
@@ -113,8 +126,8 @@
                         </li>
                         <li>
                             <a style="margin-bottom: 5px"
-                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" && ViewContext.RouteData.Values["Action"].ToString() == "UserList" ? "active" : "") "
-                               asp-controller="Admin" asp-action="UserList">
+                               class="dropdown-item @(ViewContext.RouteData.Values["Controller"].ToString() == "User" && ViewContext.RouteData.Values["Action"].ToString() == "UsersList" ? "active" : "") "
+                               asp-controller="User" asp-action="UsersList">
                                 Users List
                             </a>
                         </li>

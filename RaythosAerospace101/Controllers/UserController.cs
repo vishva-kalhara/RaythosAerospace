@@ -80,6 +80,13 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult MyProfile(User obj)
+        {
+            return View();
+        }
+
         public IActionResult Promote(string id)
         {
             if (HttpContext.Session.GetString("role") != "4")
@@ -151,6 +158,15 @@ namespace RaythosAerospace101.Controllers
             HttpContext.Session.SetString("email", "");
             HttpContext.Session.SetString("role", "");
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult UsersList()
+        {
+            if (HttpContext.Session.GetString("role") != "4")
+                return RedirectToAction("OnlyAdmin", "Messages");
+
+            IEnumerable<User> objList = _db.Users;
+            return View(objList);
         }
 
     }

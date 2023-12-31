@@ -3,11 +3,12 @@
     ViewData["Title"] = "User List";
 }
 
+@await Html.PartialAsync("_CLientHeader")
 <div class="container-md pt-5">
 
     @*<div class="d-flex w-100" style="justify-content:end">
-        <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
-    </div>*@
+            <a asp-controller="Plane" asp-action="Add" class="btn btn-secondary">New Plane</a>
+        </div>*@
 
     <div style="min-height:400px">
         @if (Model.Count() > 0)
@@ -28,12 +29,12 @@
                             <td class="align-middle">@item.FirstName</td>
                             <td class="align-middle">@item.Country </td>
                             <td class="align-middle">@(item.RoleId == 3 ? "Customer" : "Admin")</td>
-                            @if(item.UsrStatusId == 2)
+                            @if (item.UsrStatusId == 2)
                             {
                                 <td class="align-middle">
-                                    <button disabled  class="text-white btn btn-secondary mx-1 mb-0 align-middle">Account is Closed</button>
+                                    <button disabled class="text-white btn btn-secondary mx-1 mb-0 align-middle">Account is Closed</button>
                                 </td>
-                            }@if(item.UsrStatusId != 2)
+                            }@if (item.UsrStatusId != 2)
                             {
                                 <td class="align-middle">
                                     <a asp-controller="User" asp-action="Promote" asp-route-Id="@item.Email" class="btn btn-warning mx-1 mb-0 align-middle">@(item.RoleId == 3 ? "Promote to Admin" : "Demote to Customer")</a>
@@ -41,14 +42,16 @@
                                     <a id="2delete @item.Email" asp-controller="User" asp-action="Block" asp-route-Id="@item.Email" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">@(item.UsrStatusId == 1 ? "Confirm Block" :  "Confirm Unblock")</a>
                                 </td>
                             }
-                            
-                        </tr> 
+
+                        </tr>
+
                     }
                 </tbody>
             </table>
         }
     </div>
 </div>
+@await Html.PartialAsync("_footer")
 
 <script>
 

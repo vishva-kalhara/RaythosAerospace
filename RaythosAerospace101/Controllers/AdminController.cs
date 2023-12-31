@@ -85,12 +85,6 @@ namespace RaythosAerospace101.Controllers
             //        .Where(cp => cp.IsBasket == false)
             //        .ToList();
             return View();
-        }
-
-        public IActionResult UserList()
-        {
-            IEnumerable<User> objList = _db.Users;
-            return View(objList);
-        }     
+        }   
     }
 }
