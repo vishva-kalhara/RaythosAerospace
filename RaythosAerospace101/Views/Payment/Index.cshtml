@@ -5,7 +5,7 @@
 
 <section style="min-height: 550px" class="d-flex center pt-5">
 
-    <form method="post" asp-controller="Payment" asp-action="Index" asp-route-Id="@ViewBag.id" asp-route-TargetFunctionality="@ViewBag.targetFunctionality">
+    <form method="post" asp-controller="Payment" asp-action="Index" asp-route-TotalPrice="@ViewBag.totalPrice" asp-route-Id="@ViewBag.id" asp-route-TargetFunctionality="@ViewBag.targetFunctionality">
         <div style="display: flex; flex-direction: column">
             <h4 class="center mb-3">Pay Now</h4>
             <h5 class="center text-success mb-5">Grand Total: $@ViewBag.totalPrice</h5>

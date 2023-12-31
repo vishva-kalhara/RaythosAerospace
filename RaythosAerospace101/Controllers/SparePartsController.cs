@@ -109,7 +109,7 @@ namespace RaythosAerospace101.Controllers
 
             var sparePart = _db.SpareParts.Find(id);
             if (sparePart == null)
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
 
             return View(sparePart);
         }
@@ -182,7 +182,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null)
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
             if (sparePart.Stat == "Deleted")
                 return RedirectToAction("AlreadyDeleted", "Messages");
 
@@ -200,7 +200,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null)
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
 
             if (sparePart.Stat == "Active")
                 sparePart.Stat = "Hidden";
@@ -222,7 +222,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null)
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
 
             if (sparePart.Stat == "Active" || sparePart.Stat == "Hidden")
                 sparePart.Stat = "Deleted";
@@ -239,7 +239,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null || sparePart.Stat != "Active")
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("notfound101", "Messages");
 
             if(isError)
                 ViewBag.ErrorMsg = "Please check the Quantity";
@@ -254,7 +254,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null || sparePart.Stat != "Active")
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("notfound101", "Messages");
 
             if (qty < 1 || qty > sparePart.Qty)
                 ModelState.AddModelError("errorAddToCart", "Please check the Quantity");
@@ -285,7 +285,7 @@ namespace RaythosAerospace101.Controllers
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null || sparePart.Stat != "Active")
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("notfound101", "Messages");
 
             if (qty < 1 || qty > sparePart.Qty)
                 ModelState.AddModelError("errorAddToCart", "Please check the Quantity");

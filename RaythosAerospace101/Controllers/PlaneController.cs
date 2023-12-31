@@ -132,7 +132,7 @@ namespace RaythosAerospace101.Controllers
             var plane = _db.Planes.Find(id);
             if (plane == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound101", "Messages");
             }
             string[] data = { HttpContext.Session.GetString("role") };
             //ViewBag.data = data;
@@ -354,6 +354,21 @@ namespace RaythosAerospace101.Controllers
 
         //    return RedirectToAction("MakePayment", "Messages", new { id = id.ToString(), totalPrice = totalPrice, targetFunctionality = "Plane" });
         //}
+
+        public IActionResult PayForOne(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+                return RedirectToAction("OnlyUsers", "Messages");
+
+            var currObj = _db.CustomizedPlanes.Find(id);
+            if(currObj == null)
+                return RedirectToAction("notfound101", "Messages");
+
+            currObj.OverallStatusId = 2;
+            _db.CustomizedPlanes.Update(currObj);
+            _db.SaveChanges();
+            return RedirectToAction("MyPlanes");
+        }
 
         public IActionResult PayNow(int id, string nameOnCard, string cardNumber, string expDate, string cvv)
         {

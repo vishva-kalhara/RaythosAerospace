@@ -36,10 +36,10 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
-        //public IActionResult NotFound()
-        //{
-        //    return View();
-        //}
+        public IActionResult NotFound101()
+        {
+            return View();
+        }
 
         public IActionResult UnexpectedError()
         {
@@ -65,11 +65,11 @@ namespace RaythosAerospace101.Controllers
                 return RedirectToAction("OnlyUsers", "Messages");
            
             if(id == 0)
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
 
             var sparePart = _db.SpareParts.Find(id);
             if (sparePart == null || sparePart.Stat != "Active")
-                return RedirectToAction("NotFound", "Messages");
+                return RedirectToAction("NotFound101", "Messages");
 
             return View(sparePart);
         }
