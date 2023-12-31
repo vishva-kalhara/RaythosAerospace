@@ -271,21 +271,42 @@ namespace RaythosAerospace101.Controllers
                 UserEmail = HttpContext.Session.GetString("email")
             };
 
-
             _db.SparePartOrders.Add(newOrder);
             _db.SaveChanges();
 
             return RedirectToAction("AddedToCart", "Messages", new { Id = id });
         }
 
-        public IActionResult BuyNow(int id)
+        public IActionResult BuyNow(int id, int qty)
         {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+                return RedirectToAction("OnlyUsers", "Messages");
+
             var sparePart = _db.SpareParts.Find(id);
 
             if (sparePart == null || sparePart.Stat != "Active")
                 return RedirectToAction("NotFound", "Messages");
 
-            return View();
+            if (qty < 1 || qty > sparePart.Qty)
+                ModelState.AddModelError("errorAddToCart", "Please check the Quantity");
+
+            if (!ModelState.IsValid)
+                return RedirectToAction("Overview", new { id = id, isError = true });
+
+            var newOrder = new SparePartOrder
+            {
+                CurrentDateTime = DateTime.Now,
+                Qty = qty,
+                Status = "InCart",
+                SparePartId = id,
+                UserEmail = HttpContext.Session.GetString("email")
+            };
+
+            _db.SparePartOrders.Add(newOrder);
+            _db.SaveChanges();
+
+            return RedirectToAction("Cart", "Home");
+
         }
     }
 }

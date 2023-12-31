@@ -73,5 +73,23 @@ namespace RaythosAerospace101.Controllers
 
             return View(sparePart);
         }
+
+        public IActionResult MakePayment(string id, double totalPrice, string targetFunctionality)
+        {
+            //if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+            //    return RedirectToAction("OnlyUsers", "Messages");
+
+            //if(id == 0)
+            //    return RedirectToAction("NotFound", "Messages");
+
+            //var sparePart = _db.SpareParts.Find(id);
+            //if (sparePart == null || sparePart.Stat != "Active")
+            //    return RedirectToAction("NotFound", "Messages");
+
+            ViewBag.id = id;
+            ViewBag.totalPrice = totalPrice;
+            ViewBag.targetFunctionality = targetFunctionality;
+            return View();
+        }
     }
 }

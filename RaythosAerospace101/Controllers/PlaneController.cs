@@ -346,14 +346,14 @@ namespace RaythosAerospace101.Controllers
             return RedirectToAction("MyPlanes", "Plane");
         }
 
-        public IActionResult Payment(int id)
+        public IActionResult Payment(int id, double totalPrice)
         {
             if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
             {
                 return RedirectToAction("OnlyUsers", "Messages");
             }
-            ViewBag.primaryKey = id;
-            return View();
+
+            return RedirectToAction("MakePayment", "Messages", new { id = id.ToString(), totalPrice = totalPrice, targetFunctionality = "Plane" });
         }
 
         public IActionResult PayNow(int id, string nameOnCard, string cardNumber, string expDate, string cvv)

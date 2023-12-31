@@ -1,13 +1,15 @@
 ﻿
 @{
-    ViewData["Title"] = "Payment";
+    ViewData["Title"] = "Make Payment";
 }
 
 <section style="min-height: 550px" class="d-flex center pt-5">
-    <form asp-controller="Plane" asp-action="PayNow" asp-route-Id="@ViewBag.primaryKey">
+
+    <form asp-controller="@ViewBag.targetFunctionality" asp-action="PayNow" asp-route-Id="@ViewBag.id" >
         <div style="display: flex; flex-direction: column">
             <h4 class="center mb-3">Pay Now</h4>
             <h5 class="center text-success mb-5">Grand Total: $@ViewBag.totalPrice</h5>
+
             <input type="text"
                    class="mb-3"
                    name="nameOnCard"
@@ -77,7 +79,7 @@
 
 <script>
     function validateOnCLient() {
-        
+
     }
 </script>
 

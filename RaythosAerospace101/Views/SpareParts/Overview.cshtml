@@ -48,7 +48,7 @@
                             <button formaction="@Url.Action("AddToCart", "SpareParts", new { id = Model.Id })" @*asp-controller="SpareParts" asp-action="AddToCart" asp-route-Id="@Model.Id"*@ class="btn btn-secondary w-100">Add To Cart</button>
                         </div>
                         <div class="col-12 col-md-6">
-                            <a asp-controller="SpareParts" asp-action="BuyNow" asp-route-Id="@Model.Id" class="btn btn-primary w-100">Buy Now</a>
+                            <button formaction="@Url.Action("BuyNow", "SpareParts", new { id = Model.Id })" class="btn btn-primary w-100">Buy Now</button>
                         </div>
                     </div>
                 </div>
