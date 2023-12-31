@@ -36,10 +36,10 @@ namespace RaythosAerospace101.Controllers
             return View();
         }
 
-        public IActionResult NotFound()
-        {
-            return View();
-        }
+        //public IActionResult NotFound()
+        //{
+        //    return View();
+        //}
 
         public IActionResult UnexpectedError()
         {

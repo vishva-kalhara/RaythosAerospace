@@ -346,15 +346,14 @@ namespace RaythosAerospace101.Controllers
             return RedirectToAction("MyPlanes", "Plane");
         }
 
-        public IActionResult Payment(int id, double totalPrice)
-        {
-            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
-            {
-                return RedirectToAction("OnlyUsers", "Messages");
-            }
+        //public IActionResult Payment(int id, double totalPrice)
+        //{
+        //    if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+        //        return RedirectToAction("OnlyUsers", "Messages");
 
-            return RedirectToAction("MakePayment", "Messages", new { id = id.ToString(), totalPrice = totalPrice, targetFunctionality = "Plane" });
-        }
+
+        //    return RedirectToAction("MakePayment", "Messages", new { id = id.ToString(), totalPrice = totalPrice, targetFunctionality = "Plane" });
+        //}
 
         public IActionResult PayNow(int id, string nameOnCard, string cardNumber, string expDate, string cvv)
         {
@@ -365,23 +364,14 @@ namespace RaythosAerospace101.Controllers
             ViewBag.primaryKey = id;
 
             if (string.IsNullOrEmpty(nameOnCard))
-            {
                 ViewBag.NameOnCardError = "Name on the card can't be empty";
-            }
             if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length != 16)
-            {
                 ViewBag.CardNumberError = "Incorrect Card Number";
-            }
-
             if (string.IsNullOrEmpty(expDate))
-            {
                 ViewBag.ExpDateError = "Field is empty";
-            }
-
             if (string.IsNullOrEmpty(cvv))
-            {
                 ViewBag.CvvError = "Error";
-            }
+
             if (ViewBag.NameOnCardError == null && ViewBag.CardNumberError == null && ViewBag.ExpDateError == null && ViewBag.CvvError == null)
             {
                 var currObj = _db.CustomizedPlanes.Find(id);

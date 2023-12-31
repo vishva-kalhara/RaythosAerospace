@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section style="min-height: 550px" class="d-flex center pt-5">
+
+    <form method="post" asp-controller="Payment" asp-action="Index" asp-route-Id="@ViewBag.id" asp-route-TargetFunctionality="@ViewBag.targetFunctionality">
+        <div style="display: flex; flex-direction: column">
+            <h4 class="center mb-3">Pay Now</h4>
+            <h5 class="center text-success mb-5">Grand Total: $@ViewBag.totalPrice</h5>
+
+            <input type="text"
+                   class="mb-3"
+                   name="nameOnCard"
+                   id="exampleFormControlInput1"
+                   onchange="validateOnCLient()"
+                   placeholder="Name on the Card"
+                   style="min-width: 300px"
+                   value="Wishva"/>
+
+            @if (ViewBag.NameOnCardError != null)
+            {
+                <div class="text-danger" style="font-size: 14px; margin-top: -15px">@ViewBag.NameOnCardError</div>
+            }
+
+            <input type="number"
+                   class="mb-3"
+                   onchange="validateOnCLient()"
+                   name="cardNumber"
+                   id="exampleFormControlInput1"
+                   placeholder="Card Number"
+                   style="min-width: 300px"
+                   value="1111222233334444"/>
+            @if (ViewBag.CardNumberError != null)
+            {
+                <div class="text-danger" style="font-size: 14px; margin-top: -15px">@ViewBag.CardNumberError</div>
+            }
+            <div style="display: flex; justify-content: space-between">
+                <div>
+
+                    <input type="text"
+                           class="mb-3"
+                           id="exampleFormControlInput1"
+                           onchange="validateOnCLient()"
+                           name="expDate"
+                           placeholder="Exp. Date"
+                           style="max-width: 180px"
+                           value="12/25"/>
+
+                    @if (ViewBag.ExpDateError != null)
+                    {
+                        <div class="text-danger" style="font-size: 14px; margin-top: -15px">@ViewBag.ExpDateError</div>
+                    }
+                </div>
+                <div>
+
+                    <input type="number"
+                           class="mb-3"
+                           name="cvv"
+                           onchange="validateOnCLient()"
+                           id="exampleFormControlInput1"
+                           placeholder="cvv"
+                           style="max-width: 100px" 
+                           value="111"
+                           />
+
+                    @*@if (ViewBag.CvvError != null)
+                    {
+                        <div class="text-danger" style="font-size: 14px; margin-top: -15px">@ViewBag.CvvError</div>
+                    }*@
+                </div>
+
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div style="margin-top: 24px; max-width: 300px; width: 100%;">
+                <input type="submit" class="max__filled__button" value="Pay Now">
+                <div style="display: flex; justify-content: center;">
+                    <a asp-action="MyPlanes" class="mt-3 text__button">Cancel Payment</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+
+
+
