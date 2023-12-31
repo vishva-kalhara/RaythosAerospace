@@ -16,17 +16,18 @@ namespace RaythosAerospace101.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult Index(string id, double totalPrice, string targetFunctionality)
+        public IActionResult Index(string id, int qty, double totalPrice, string targetFunctionality)
         {
             ViewBag.id = id;
             ViewBag.totalPrice = totalPrice;
             ViewBag.targetFunctionality = targetFunctionality;
+            ViewBag.qty = qty;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(string id, double totalPrice, string targetFunctionality, string nameOnCard, string cardNumber, string expDate, string cvv)
+        public IActionResult Index(string id, int qty, double totalPrice, string targetFunctionality, string nameOnCard, string cardNumber, string expDate, string cvv)
         {
             if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
                 return RedirectToAction("OnlyUsers", "Messages");
@@ -47,7 +48,7 @@ namespace RaythosAerospace101.Controllers
                 if (targetFunctionality == "Plane")
                     return RedirectToAction("PayForOne", "Plane", new { id = int.Parse(id) });
                 else if (targetFunctionality == "SpareParts")
-                    return RedirectToAction("PayForOne", "SpareParts", new { id = int.Parse(id) });
+                    return RedirectToAction("PayForOne", "SpareParts", new { id = int.Parse(id) , qty = qty });
                 else if (targetFunctionality == "Cart")
                     return RedirectToAction("PayForAll", "Cart", new { id = id });
                 else
