@@ -1,7 +1,139 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model RaythosAerospace101.ViewModels.CustomizedPlanes__SparePartOrders
+
 @{
     ViewData["Title"] = "Index";
 }
 
+<div class="container-md pt-5">
+
+    <h2 class="center mb-4">My Cart</h2>
+
+    <div style="min-height:400px">
+        @if (Model.CustomizedPlanes.Count() > 0 || Model.SparePartOrders.Count > 0)
+        {
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+
+                @{
+                    var grandTotal = 0.0;
+                }
+
+                <tbody>
+                    @foreach (var item in Model.CustomizedPlanes)
+                    {
+                        @*@if (item.OverallStatusId == 1 && item.IsBasket == true)
+                            {*@
+                        <tr>
+                            <td class="align-middle">Aeroplane</td>
+                            <td class="align-middle">@item.Plane.Name</td>
+
+                            @{
+                                var itemPrice = item.Plane.Price + item.PlaneDesignScheme.Price + item.FloorPlan.Price;
+                                grandTotal += itemPrice;
+                            }
+
+                            <td class="align-middle">$@itemPrice</td>
+                            <td class="align-middle">1</td>
+
+                            @*<td class="align-middle">
+                                    <form method="post" asp-controller="SpareParts" asp-action="UpdateQty" asp-route-Id="@item.Id">
+                                        <div class="d-flex">
+                                            <input name="qty" type="number" style="max-width: 65px" class="form-control" placeholder="qty" value="@item.Qty">
+                                            <a id="1update @item.Id" onclick="firstHideQty(@item.Id)" class="btn btn-primary text-white mx-1 mb-0 align-middle align-items-center">Update</a>
+                                            <input id="2update @item.Id" style="max-width: 125px" type="submit" class="d-none btn btn-primary mx-1 mb-0 align-middle align-items-center" value="Confirm Update">
+                                        </div>
+                                    </form>
+
+                                </td>*@
 
 
+
+                            <td class="align-middle">$@itemPrice</td>
+                            <td class="align-middle d-flex">
+                                <a id="1delete Plane @item.Id" onclick="firstHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Remove</a>
+                                <a id="2delete Plane @item.Id" asp-controller="Cart" asp-action="DeleteCustomizedPlane" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Remove</a>
+                            </td>
+                        </tr>
+                        <!--}-->
+                    } @foreach (var item in Model.SparePartOrders)
+                    {
+                        @*@if (item.OverallStatusId == 1 && item.IsBasket == true)
+                            {*@
+                        <tr>
+                            <td class="align-middle">Spare Part</td>
+                            <td class="align-middle">@item.SparePart.Brand: @item.SparePart.Title</td>
+                            <td class="align-middle">$@item.SparePart.Price</td>
+                            <td class="align-middle">@item.Qty</td>
+
+
+
+                            @{
+                                var itemTotal = item.SparePart.Price * item.Qty;
+                                grandTotal += itemTotal;
+
+                            }
+
+                            <td class="align-middle">$@itemTotal</td>
+                            <td class="align-middle d-flex">
+                                <a id="1delete Part @item.Id" onclick="partHide(@item.Id);" class="text-white btn btn-danger mx-1 mb-0 align-middle">Remove</a>
+                                <a id="2delete Part @item.Id" asp-controller="Cart" asp-action="DeleteSparePart" asp-route-Id="@item.Id" class="d-none text-white btn btn-danger mx-1 mb-0 align-middle">Confirm Remove</a>
+                            </td>
+                        </tr>
+                        <!--}-->
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="mt-3">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Grand Total: </td>
+                        <td>$@grandTotal</td>
+                        <td>
+                            <a asp-controller="Payment" asp-action="Index" asp-route-Id="@HttpContextAccessor.HttpContext.Session.GetString("email")" asp-route-TotalPrice="@grandTotal" asp-route-TargetFunctionality="Cart" class="text-white btn btn-primary mx-1 mb-0 align-middle">Place Order</a>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h2>Cart is Empty</h2>
+        }
+
+    </div>
+</div>
+
+<script>
+
+    function firstHide(id) {
+        document.getElementById("1delete Plane " + id).classList.add("d-none");
+        document.getElementById("2delete Plane " + id).classList.remove("d-none");
+    }
+
+    function partHide(id) {
+        document.getElementById("1delete Part " + id).classList.add("d-none");
+        document.getElementById("2delete Part " + id).classList.remove("d-none");
+    }
+
+</script>
