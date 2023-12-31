@@ -42,6 +42,16 @@ namespace RaythosAerospace101.Controllers
             return View(ViewModel);
         }
 
+        public IActionResult Cart()
+        {
+            var ViewModel = new Planes__SpareParts
+            {
+                Planes = _db.Planes.ToList(),
+                SpareParts = _db.SpareParts.ToList()
+            };
+            return View(ViewModel);
+        }
+
 
         public IActionResult MyProfile()
         {

@@ -1,7 +1,59 @@
-﻿
+﻿@model RaythosAerospace101.Models.SparePart
 @{
     ViewData["Title"] = "Overview";
 }
 
-<h1>Overview</h1>
+<section style="min-height: 70vh">
+    <div class="container-md">
+        <form method="post">
+
+            <div class="row">
+
+                <div class="col-12 col-md-6">
+                    <div style="border: 1px solid #0000008a; width: 100%; height: 400px; background-position: center; background-repeat: no-repeat; background-size: contain; background-image: url('../../images/spareParts/@Model.ImagePath');"></div>
+                </div>
+
+                <div class="col-12 col-md-6" style="padding: 0 24px; box-sizing: border-box;">
+                    <h3 class="mb-4">@Model.Title</h3>
+                    <div class="row mb-2">
+                        <div class="col-4 col-sm-4 col-md-3 " style="opacity: .65;">Brand:</div>
+                        <div class="col-8">@Model.Brand</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 col-sm-4 col-md-3 " style="opacity: .65;">Country:</div>
+                        <div class="col-8">@Model.ManufacturedCountry</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 col-sm-4 col-md-3 " style="opacity: .65;">Description:</div>
+                        <div class="col-8">@Model.Description</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-4 col-sm-4 col-md-3 " style="opacity: .65;">Available:</div>
+                        <div class="col-8">@Model.Qty</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4 col-sm-4 col-md-3 " style="opacity: .65;">Qty:</div>
+                        <div class="col-3">
+                            <input class="form-control" type="number" name="qty" value="1" id="">
+                        </div>
+                    </div>
+                    @if (ViewBag.ErrorMsg != null || ViewBag.ErrorMsg == "")
+                    {
+                        <div class="row mb-2">
+                            <div class="text-danger">@ViewBag.ErrorMsg</div>
+                        </div>
+                    }
+                    <div class="row mb-2">
+                        <div class="col-12 col-md-6">
+                            <button formaction="@Url.Action("AddToCart", "SpareParts", new { id = Model.Id })" @*asp-controller="SpareParts" asp-action="AddToCart" asp-route-Id="@Model.Id"*@ class="btn btn-secondary w-100">Add To Cart</button>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a asp-controller="SpareParts" asp-action="BuyNow" asp-route-Id="@Model.Id" class="btn btn-primary w-100">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 

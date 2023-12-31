@@ -1,0 +1,16 @@
+﻿@model RaythosAerospace101.Models.SparePart
+@{
+    ViewData["Title"] = "Added To Cart";
+}
+
+<section style="min-height: 550px" class="d-flex center pt-5">
+    <div>
+        <h2 class="center text-success">Item Added To Cart</h2>
+        <h6>@Model.Brand - @Model.Title added to Cart</h6>
+        <div class="" style="width: 100%; display:flex; justify-content:center;">
+            <a class="btn btn-secondary mt-5 me-2" asp-controller="Home" asp-action="Shop">Shop More</a>
+            <a class="btn btn-primary mt-5" asp-controller="Home" asp-action="Cart">Go to Cart</a>
+        </div>
+    </div>
+</section>
+

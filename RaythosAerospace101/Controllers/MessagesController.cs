@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RaythosAerospace101.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace RaythosAerospace101.Controllers
     public class MessagesController : Controller
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationDbContext _db;
 
-        public MessagesController(IHttpContextAccessor httpContextAccessor)
+        public MessagesController(IHttpContextAccessor httpContextAccessor, ApplicationDbContext db)
         {
             _httpContextAccessor = httpContextAccessor;
+            _db = db;
         }
 
         // GET: Success
@@ -51,10 +54,24 @@ namespace RaythosAerospace101.Controllers
         public IActionResult Logout()
         {
             if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
-            {
                 return RedirectToAction("OnlyUsers", "Messages");
-            }
+          
             return View();
+        }
+
+        public IActionResult AddedToCart(int id)
+        {
+            if (HttpContext.Session.GetString("role") != "4" && HttpContext.Session.GetString("role") != "3")
+                return RedirectToAction("OnlyUsers", "Messages");
+           
+            if(id == 0)
+                return RedirectToAction("NotFound", "Messages");
+
+            var sparePart = _db.SpareParts.Find(id);
+            if (sparePart == null || sparePart.Stat != "Active")
+                return RedirectToAction("NotFound", "Messages");
+
+            return View(sparePart);
         }
     }
 }

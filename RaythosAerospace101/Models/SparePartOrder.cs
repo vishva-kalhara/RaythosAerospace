@@ -12,7 +12,9 @@ namespace RaythosAerospace101.Models
         [Key]
         public int Id { get; set; }
 
-        public DateTime currentDateTime { get; set; }
+        public DateTime CurrentDateTime { get; set; }
+
+        public int Qty { get; set; }
 
         public string Status { get; set; } // InCart, Paid, 
 
