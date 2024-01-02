@@ -1,7 +1,79 @@
-﻿
+﻿@model RaythosAerospace101.Models.User
+
 @{
     ViewData["Title"] = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>MyProfile</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MyProfile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mobile1" class="control-label"></label>
+                <input asp-for="Mobile1" class="form-control" />
+                <span asp-validation-for="Mobile1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mobile2" class="control-label"></label>
+                <input asp-for="Mobile2" class="form-control" />
+                <span asp-validation-for="Mobile2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address1" class="control-label"></label>
+                <input asp-for="Address1" class="form-control" />
+                <span asp-validation-for="Address1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address2" class="control-label"></label>
+                <input asp-for="Address2" class="form-control" />
+                <span asp-validation-for="Address2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label"></label>
+                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsrStatusId" class="control-label"></label>
+                <select asp-for="UsrStatusId" class ="form-control" asp-items="ViewBag.UsrStatusId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 

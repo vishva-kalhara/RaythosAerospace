@@ -77,13 +77,22 @@ namespace RaythosAerospace101.Controllers
 
         public IActionResult MyProfile()
         {
-            return View();
-        }
+            if (HttpContext.Session.GetString("email") == null)
+                return RedirectToAction("OnlyUsers", "Messages");
 
+            var user = _db.Users.Find(HttpContext.Session.GetString("email"));
+            return View(user);
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult MyProfile(User obj)
         {
+            if (obj !=null )
+            {
+                _db.Update(obj);
+                _db.SaveChanges();
+            }
             return View();
         }
 
@@ -168,6 +177,8 @@ namespace RaythosAerospace101.Controllers
             IEnumerable<User> objList = _db.Users;
             return View(objList);
         }
+       
+
 
     }
 }

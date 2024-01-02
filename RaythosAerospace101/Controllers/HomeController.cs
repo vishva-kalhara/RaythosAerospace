@@ -42,12 +42,6 @@ namespace RaythosAerospace101.Controllers
             return View(ViewModel);
         }
 
-
-        public IActionResult MyProfile()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
